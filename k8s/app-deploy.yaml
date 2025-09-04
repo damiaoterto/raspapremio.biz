@@ -25,7 +25,7 @@ spec:
       initContainers:
       - name: copy-app-code
         image: harbor.tewe.com.br/platforms/raspapremio:latest
-        command: ['/bin/sh', '-c', 'cp -r /var/www/html/. /app-code']
+        command: ['/bin/sh', '-c', 'cp -r /var/www/html/. /app-code && chown -R www-data:www-data /app-code']
         volumeMounts:
         - name: shared-code
           mountPath: /app-code
