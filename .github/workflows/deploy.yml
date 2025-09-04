@@ -6,7 +6,6 @@ on:
 
 env:
   APP_NAME: 'raspapremio'
-  APP_IMAGE: ${{ secrets.HARBOR_HOST }}/platforms/${{ env.APP_NAME }}
 
 jobs:
   build-and-push:
@@ -35,7 +34,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.APP_IMAGE }}:latest
-            ${{ secrets.APP_IMAGE }}:${{ github.sha }}
+            ${{ secrets.HARBOR_HOST }}/platforms/${{ env.APP_NAME }}:latest
+            ${{ secrets.HARBOR_HOST }}/platforms/${{ env.APP_NAME }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
