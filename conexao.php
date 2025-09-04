@@ -1,8 +1,14 @@
 <?php
-$host = '127.0.0.1';
-$db   = 'app_db';
-$user = 'app_user';
-$pass = 'secreto';
+
+require_once __DIR__.'/vendor/autoload.php';
+
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$host = $_ENV['DATABASE_HOST'];
+$db   = $_ENV['DATABASE_NAME'];
+$user = $_ENV['DATABASE_USER'];
+$pass = $_ENV['DATABASE_PASSWORD'];
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
