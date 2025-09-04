@@ -1,0 +1,13 @@
+services:
+  database:
+    image: mysql:latest
+    container_name: mysql_dev
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'supersecreto'
+      MYSQL_DATABASE: 'app_db'
+      MYSQL_USER: 'app_user'
+      MYSQL_PASSWORD: 'secreto'

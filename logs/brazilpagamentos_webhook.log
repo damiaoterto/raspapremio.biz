@@ -1,0 +1,62 @@
+2025-07-26 23:13:01 - Webhook recebido: {
+    "type": "transaction",
+    "data": {
+      "id": "12182291",
+      "status": "approved",
+      "amount": 100.00,
+      "currency": "BRL",
+      "created_at": "2024-01-15T10:30:00Z"
+    }
+  }
+2025-07-26 23:13:01 - Dados decodificados: {"type":"transaction","data":{"id":"12182291","status":"approved","amount":100,"currency":"BRL","created_at":"2024-01-15T10:30:00Z"}}
+2025-07-26 23:13:01 - Erro: Depósito não encontrado: 12182291
+2025-07-26 23:14:11 - Webhook recebido: {
+    "type": "transaction",
+    "data": {
+      "id": "12182291",
+      "status": "approved",
+      "amount": 100.00,
+      "currency": "BRL",
+      "created_at": "2024-01-15T10:30:00Z"
+    }
+  }
+2025-07-26 23:14:11 - Dados decodificados: {"type":"transaction","data":{"id":"12182291","status":"approved","amount":100,"currency":"BRL","created_at":"2024-01-15T10:30:00Z"}}
+2025-07-26 23:14:11 - Erro: Depósito não encontrado: 12182291
+2025-07-26 23:15:23 - Webhook recebido: {
+    "type": "transaction",
+    "data": {
+      "id": "12182291",
+      "status": "approved"
+    }
+  }
+2025-07-26 23:15:23 - Dados decodificados: {"type":"transaction","data":{"id":"12182291","status":"approved"}}
+2025-07-26 23:15:23 - Erro: Depósito não encontrado: 12182291
+2025-07-26 23:15:52 - Webhook recebido: {
+    "type": "transaction",
+    "data": {
+      "id": "12182291",
+      "status": "approved"
+    }
+  }
+2025-07-26 23:15:52 - Dados decodificados: {"type":"transaction","data":{"id":"12182291","status":"approved"}}
+2025-07-26 23:15:52 - Depósito aprovado: 12182291 - Valor: 20.00
+2025-07-26 23:15:52 - Status atualizado: 12182291 -> APPROVED
+2025-07-26 23:17:34 - Webhook recebido: {
+    "type": "transaction",
+    "data": {
+      "id": "12183332",
+      "status": "approved"
+    }
+  }
+2025-07-26 23:17:34 - Dados decodificados: {"type":"transaction","data":{"id":"12183332","status":"approved"}}
+2025-07-26 23:17:34 - Depósito aprovado: 12183332 - Valor: 50.00
+2025-07-26 23:17:34 - Status atualizado: 12183332 -> APPROVED
+2025-07-26 23:19:26 - Webhook recebido: {
+    "type": "transaction",
+    "data": {
+      "id": "12183332",
+      "status": "approved"
+    }
+  }
+2025-07-26 23:19:26 - Dados decodificados: {"type":"transaction","data":{"id":"12183332","status":"approved"}}
+2025-07-26 23:19:26 - Status atualizado: 12183332 -> PAID
