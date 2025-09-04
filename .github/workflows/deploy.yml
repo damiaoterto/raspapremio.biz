@@ -3,6 +3,9 @@ name: Build and Push Docker Image to Harbor
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - "**/*.yaml"
+      - "**/*.yml"
 
 env:
   APP_NAME: 'raspapremio'
