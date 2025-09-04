@@ -6,11 +6,10 @@ on:
 
 env:
   APP_NAME: 'raspapremio'
-  ENVIRONMENT_NAME: 'raspapremio'
 
 jobs:
   build-and-push:
-    environment: $ENVIRONMENT_NAME
+    environment: raspapremio
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
