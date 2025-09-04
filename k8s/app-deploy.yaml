@@ -24,7 +24,7 @@ spec:
 
       initContainers:
       - name: copy-app-code
-        image: sua-imagem-php-fpm-aqui:latest
+        image: harbor.tewe.com.br/platforms/raspapremio:latest
         command: ['/bin/sh', '-c', 'cp -r /var/www/html/. /app-code']
         volumeMounts:
         - name: shared-code
