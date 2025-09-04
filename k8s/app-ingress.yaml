@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: "raspapremio.biz"
+  - host: raspapremio.biz
     http:
       paths:
       - path: /
@@ -19,3 +19,7 @@ spec:
             name: php-app-service
             port:
               number: 80
+    tls:
+    - hosts:
+      - raspapremio.biz
+      secretName: raspapremio-app-tls
