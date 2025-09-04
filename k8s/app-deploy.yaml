@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: php-app
+  template:
+    metadata:
+      labels:
+        app: php-app
+    spec:
+      imagePullSecrets:
+      - name: harbor-credentials
+
+      volumes:
+      - name: shared-code
+        emptyDir: {}
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config
+
+      initContainers:
+      - name: copy-app-code
+        image: sua-imagem-php-fpm-aqui:latest
+        command: ['/bin/sh', '-c', 'cp -r /var/www/html/. /app-code']
+        volumeMounts:
+        - name: shared-code
+          mountPath: /app-code
+      containers:
+      - name: nginx
+        image: nginx:stable-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: shared-code
+          mountPath: /var/www/html
+          readOnly: true
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d/
+          readOnly: true
+
+      - name: php-fpm
+        image: harbor.tewe.com.br/platforms/raspapremio:latest
+        env:
+          - name: DB_HOST
+            value: "mysql"
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_DATABASE
+            value: "meu_banco"
+          - name: DB_USERNAME
+            value: "root"
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: ROOT_PASSWORD
+        volumeMounts:
+        - name: shared-code
+          mountPath: /var/www/html
