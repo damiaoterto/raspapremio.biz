@@ -74,6 +74,4 @@ spec:
               command: ["/bin/sh", "-c", "cp -r /var/www/. /app-code-volume/"]
         volumeMounts:
         - name: shared-code
-          mountPath: /var/www
-        - name: shared-code
           mountPath: /app-code-volume
