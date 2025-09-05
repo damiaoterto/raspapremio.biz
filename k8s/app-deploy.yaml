@@ -12,6 +12,11 @@ spec:
       labels:
         app: php-app
     spec:
+      securityContext:
+        runAsUser: 82
+        runAsGroup: 82
+        fsGroup: 82
+
       imagePullSecrets:
       - name: harbor-credentials
 
@@ -25,8 +30,9 @@ spec:
         emptyDir: {}
       - name: nginx-run
         emptyDir: {}
-      - name: nginx-logs
-        emptyDir: {}
+      # Este volume de logs não é mais necessário, pois seu Nginx agora loga para stdout/stderr
+      # - name: nginx-logs
+      #   emptyDir: {}
 
       initContainers:
       - name: copy-app-code
@@ -51,8 +57,9 @@ spec:
           mountPath: /var/cache/nginx
         - name: nginx-run
           mountPath: /run
-        - name: nginx-logs # 2. Monte o volume no diretório pai dos logs
-          mountPath: /home/thelord.space/logs
+        # Este volumeMount também não é mais necessário
+        # - name: nginx-logs
+        #   mountPath: /home/thelord.space/logs
 
       - name: php-fpm
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:6ccd779d472634debd7bbd7f6e97b7ca03953d84498a563fe3d4581cb7b32e10
