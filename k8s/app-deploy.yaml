@@ -28,7 +28,7 @@ spec:
       initContainers:
       - name: copy-app-code
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:8985eb8ac68af386a9ddc222c40bd1bc4598f516cb29c5e38626c0f27e8a5ae5
-        command: ['/bin/sh', '-c', 'cp -r /var/www/html/ /app-code']
+        command: ['/bin/sh', '-c', 'cp -r /var/www /app-code']
         volumeMounts:
         - name: shared-code
           mountPath: /app-code
@@ -39,7 +39,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: shared-code
-          mountPath: /var/www/html
+          mountPath: /var/www/
           readOnly: true
         - name: nginx-config-volume
           mountPath: /etc/nginx/conf.d/
@@ -63,4 +63,4 @@ spec:
                 key: ROOT_PASSWORD
         volumeMounts:
         - name: shared-code
-          mountPath: /var/www/html
+          mountPath: /var/www
