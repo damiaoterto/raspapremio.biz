@@ -15,10 +15,12 @@ RUN apk update && apk add --no-cache \
 
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-COPY . .
+COPY . /var/www
 
 RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www
+
+USER www-data
 
 EXPOSE 9000
 

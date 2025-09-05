@@ -44,6 +44,13 @@ spec:
 
       - name: php-fpm
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:68f151a6d3b22e49bf4d941add31a73f22d0c208834095ad7be40ba0d38ff404
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            # Garante que o PHP-FPM saiba que seu diretório de trabalho é /var/www
+            sed -i 's#;chdir = /var/www#chdir = /var/www#g' /usr/local/etc/php-fpm.d/www.conf;
+            # Inicia o processo principal
+            php-fpm
         env:
           - name: DB_HOST
             value: "mysql"
