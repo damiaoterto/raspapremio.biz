@@ -1,6 +1,6 @@
 FROM php:8.4.12-fpm-alpine3.21
 
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
@@ -18,7 +18,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www
 
 EXPOSE 9000
 
