@@ -7,35 +7,19 @@ data:
     server {
         listen 80;
         server_name localhost;
+        root /var/www;
+        index index.php;
 
         access_log /dev/stdout;
         error_log /dev/stderr;
 
-        root /var/www;
-        index index.php;
-
-        # Regra para remover a barra final (ex: /cartelas/ -> /cartelas)
-        rewrite ^/(.*)/$ /$1 permanent;
-
         location / {
-            # Regra de roteamento principal (ex: /cartelas -> /cartelas/index.php)
-            # Tenta o arquivo exato, depois o diretório, e finalmente tenta adicionar /index.php
-            try_files $uri $uri/ $uri/index.php =404;
+            try_files $uri $uri/ =404;
         }
 
         location ~ \.php$ {
             include fastcgi_params;
-            access_log /home/thelord.space/logs/access_log;
-            error_log /home/thelord.space/logs/error_log;
-            fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-            fastcgi_param SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
         }
-
-        # Página de erro customizada
-        error_page 404 /index.php;
-
-        # Cabeçalhos de segurança
-        add_header X-Content-Type-Options "nosniff" always;
-        add_header X-Frame-Options "DENY" always;
-        add_header X-XSS-Protection "1; mode=block" always;
     }
