@@ -32,6 +32,9 @@ spec:
       initContainers:
       - name: copy-app-code
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:6c3182758e78f8f5255e1c53a8fc64870dc49ded1ff6ae9b9eb54f8963746bc9
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
         command:
         - /bin/sh
         - -c
