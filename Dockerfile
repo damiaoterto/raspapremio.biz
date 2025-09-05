@@ -1,7 +1,5 @@
 FROM php:8.4.12-fpm-alpine3.21
 
-WORKDIR /var/www/html
-
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN apk update && apk add --no-cache \
@@ -21,3 +19,5 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 9000
+
+CMD ["php-fpm"]
