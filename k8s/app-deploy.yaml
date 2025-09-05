@@ -12,11 +12,6 @@ spec:
       labels:
         app: php-app
     spec:
-      securityContext:
-        runAsUser: 82
-        runAsGroup: 82
-        fsGroup: 82
-
       imagePullSecrets:
       - name: harbor-credentials
 
@@ -33,7 +28,7 @@ spec:
 
       initContainers:
       - name: copy-app-code
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:bb8a04f8a5706a466d6c2274aad897ed0205dd7c82bdb9ea12cf73046f38b018
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:6ccd779d472634debd7bbd7f6e97b7ca03953d84498a563fe3d4581cb7b32e10
         command: ['/bin/sh', '-c', 'cp -r /var/www/. /app-code/']
         volumeMounts:
         - name: shared-code
@@ -56,7 +51,7 @@ spec:
           mountPath: /run
 
       - name: php-fpm
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:bb8a04f8a5706a466d6c2274aad897ed0205dd7c82bdb9ea12cf73046f38b018
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:6ccd779d472634debd7bbd7f6e97b7ca03953d84498a563fe3d4581cb7b32e10
         env:
           - name: DB_HOST
             value: "mysql"

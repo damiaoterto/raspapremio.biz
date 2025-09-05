@@ -22,8 +22,10 @@ data:
 
         location ~ \.php$ {
             include fastcgi_params;
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            access_log /home/thelord.space/logs/access_log;
+            error_log /home/thelord.space/logs/error_log;
+            fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
         }
 
         # Página de erro customizada
