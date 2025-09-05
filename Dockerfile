@@ -18,6 +18,7 @@ COPY . /var/www
 RUN composer install --no-dev --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www
 USER www-data
 
 EXPOSE 9000
