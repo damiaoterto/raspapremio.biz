@@ -1,19 +1,34 @@
-FROM php:8.4.12-fpm-alpine3.21
+FROM php:8.4-fpm
 
 WORKDIR /var/www
 
-RUN apk update && apk add --no-cache \
-    $PHPIZE_DEPS \
-    libzip-dev \
+RUN apt-get update && apt-get install -y \
+    build-essential \
     libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql zip
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl \
+    libzip-dev \
+    libonig-dev \
+    libpq-dev \
+    graphviz
 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring zip exif pcntl
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-COPY . /var/www
+COPY ./composer.json ./composer.lock ./
+COPY ./ ./
 
 RUN composer install --no-dev --optimize-autoloader
 
