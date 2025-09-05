@@ -37,7 +37,7 @@ spec:
         - -c
         - |
           cp -r /var/www/. /app-code/
-          chown -R 82:82 /app-code
+          chmod -R a+rwX /app-code
         volumeMounts:
         - name: shared-code
           mountPath: /app-code
