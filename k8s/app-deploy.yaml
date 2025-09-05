@@ -28,6 +28,8 @@ spec:
           name: nginx-config
       - name: nginx-cache
         emptyDir: {}
+      - name: nginx-run
+        emptyDir: {}
 
       initContainers:
       - name: copy-app-code
@@ -50,6 +52,8 @@ spec:
           readOnly: true
         - name: nginx-cache
           mountPath: /var/cache/nginx
+        - name: nginx-run
+          mountPath: /run
 
       - name: php-fpm
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:b3f817810a3fe9012db799948749a6d50f1a73d35221164a1053926cc9ec5418
