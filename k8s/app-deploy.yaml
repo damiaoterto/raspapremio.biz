@@ -29,21 +29,6 @@ spec:
       # - name: nginx-logs
       #   emptyDir: {}
 
-      initContainers:
-      - name: copy-app-code
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:3683516c52363c09dac38082b0bc9a77cc073571a561e277a3d134d453f4d11c
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-        command:
-        - /bin/sh
-        - -c
-        - |
-          cp -r /var/www/. /app-code/
-          chown -R 82:82 /app-code
-        volumeMounts:
-        - name: shared-code
-          mountPath: /app-code
       containers:
       - name: nginx
         image: nginx:stable-alpine
@@ -83,6 +68,12 @@ spec:
               secretKeyRef:
                 name: mysql-secret
                 key: ROOT_PASSWORD
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /var/www/. /app-code-volume/"]
         volumeMounts:
         - name: shared-code
           mountPath: /var/www
+        - name: shared-code
+          mountPath: /app-code-volume
