@@ -12,6 +12,9 @@ spec:
       labels:
         app: php-app
     spec:
+      securityContext:
+        fsGroup: 82
+
       imagePullSecrets:
       - name: harbor-credentials
 
