@@ -12,9 +12,6 @@ spec:
       labels:
         app: php-app
     spec:
-      securityContext:
-        fsGroup: 82
-
       imagePullSecrets:
       - name: harbor-credentials
 
@@ -28,7 +25,12 @@ spec:
       initContainers:
       - name: copy-app-code
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:68f151a6d3b22e49bf4d941add31a73f22d0c208834095ad7be40ba0d38ff404
-        command: ['/bin/sh', '-c', 'cp -r /var/www/. /app-code/ && chown -R 82:82 /app-code']
+        command: ['/bin/sh', '-c']
+        args:
+          - |
+            sed -i 's#;chroot =#chroot =#g' /usr/local/etc/php-fpm.d/www.conf;
+            sed -i 's#chroot = .*#chroot = /var/www#g' /usr/local/etc/php-fpm.d/www.conf;
+            php-fpm
         volumeMounts:
         - name: shared-code
           mountPath: /app-code
