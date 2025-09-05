@@ -47,6 +47,9 @@ spec:
       containers:
       - name: nginx
         image: nginx:stable-alpine
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
         ports:
         - containerPort: 80
         volumeMounts:
