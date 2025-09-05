@@ -40,7 +40,8 @@ spec:
         - -c
         - |
           cp -r /var/www/. /app-code/
-          chmod -R a+rwX /app-code
+          # Altera o dono dos arquivos para o usuário www-data (uid:82)
+          chown -R 82:82 /app-code
         volumeMounts:
         - name: shared-code
           mountPath: /app-code
