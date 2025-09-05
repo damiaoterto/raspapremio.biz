@@ -7,11 +7,17 @@ data:
     server {
         listen 80;
         server_name localhost;
+
         root /var/www;
         index index.php;
 
+        # Regra para remover a barra final (ex: /cartelas/ -> /cartelas)
+        rewrite ^/(.*)/$ /$1 permanent;
+
         location / {
-            try_files $uri $uri/ =404;
+            # Regra de roteamento principal (ex: /cartelas -> /cartelas/index.php)
+            # Tenta o arquivo exato, depois o diretório, e finalmente tenta adicionar /index.php
+            try_files $uri $uri/ $uri/index.php =404;
         }
 
         location ~ \.php$ {
@@ -19,4 +25,12 @@ data:
             fastcgi_pass   127.0.0.1:9000;
             fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
         }
+
+        # Página de erro customizada
+        error_page 404 /index.php;
+
+        # Cabeçalhos de segurança
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-Frame-Options "DENY" always;
+        add_header X-XSS-Protection "1; mode=block" always;
     }
