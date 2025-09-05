@@ -11,10 +11,10 @@ spec:
     metadata:
       labels:
         app: php-app
-      annotations:
-        container.apparmor.security.beta.kubernetes.io/php-fpm: unconfined
     spec:
       securityContext:
+        runAsUser: 82
+        runAsGroup: 82
         fsGroup: 82
 
       imagePullSecrets:
