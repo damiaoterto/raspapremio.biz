@@ -1,5 +1,7 @@
 FROM php:8.4.12-fpm-alpine3.21
 
+WORKDIR /var/www/html
+
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN apk update && apk add --no-cache \
