@@ -31,7 +31,7 @@ spec:
 
       initContainers:
       - name: copy-app-code
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:6c3182758e78f8f5255e1c53a8fc64870dc49ded1ff6ae9b9eb54f8963746bc9
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:3683516c52363c09dac38082b0bc9a77cc073571a561e277a3d134d453f4d11c
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -40,7 +40,6 @@ spec:
         - -c
         - |
           cp -r /var/www/. /app-code/
-          # Altera o dono dos arquivos para o usuário www-data (uid:82)
           chown -R 82:82 /app-code
         volumeMounts:
         - name: shared-code
@@ -66,7 +65,7 @@ spec:
         #   mountPath: /home/thelord.space/logs
 
       - name: php-fpm
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:6c3182758e78f8f5255e1c53a8fc64870dc49ded1ff6ae9b9eb54f8963746bc9
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:3683516c52363c09dac38082b0bc9a77cc073571a561e277a3d134d453f4d11c
         env:
           - name: DB_HOST
             value: "mysql"
