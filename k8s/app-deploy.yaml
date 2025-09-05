@@ -24,7 +24,7 @@ spec:
 
       initContainers:
       - name: copy-app-code
-        image: harbor.tewe.com.br/platforms/raspapremio:latest
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:8d95694d586008d0b2eacb8381ca140abca578cc5f799b28eb2b11292ff2d319
         command: ['/bin/sh', '-c', 'cp -r /var/www/html/. /app-code']
         volumeMounts:
         - name: shared-code
@@ -43,7 +43,7 @@ spec:
           readOnly: true
 
       - name: php-fpm
-        image: harbor.tewe.com.br/platforms/raspapremio:latest
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:8d95694d586008d0b2eacb8381ca140abca578cc5f799b28eb2b11292ff2d319
         env:
           - name: DB_HOST
             value: "mysql"
