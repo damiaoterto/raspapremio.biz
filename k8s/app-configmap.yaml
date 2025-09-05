@@ -8,6 +8,9 @@ data:
         listen 80;
         server_name localhost;
 
+        access_log /dev/stdout;
+        error_log /dev/stderr;
+
         root /var/www;
         index index.php;
 
