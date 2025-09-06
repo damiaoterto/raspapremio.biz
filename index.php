@@ -5,6 +5,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 include('./conexao.php');
+
+$inMaintenance = $_ENV['MAINTENANCE'] === 'true';
+
+if ($inMaintenance) {
+    require_once __DIR__.'/maintenance.php';
+    return;
+}
 ?>
 
 <!DOCTYPE html>
