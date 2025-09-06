@@ -16,10 +16,12 @@ spec:
       - name: harbor-credentials
       containers:
       - name: php-apache
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:24889f3ed6bea90ffa88c65a6c42ce577beed813766ab92ddbffa44d4c39a4f3
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:cd790e09efcdf4aa0035459e1d0ab8e5215c14aa23d96a867eee3c36e23dc0eb
         ports:
           - containerPort: 80
         env:
+          - name: MAINTENANCE
+            value: "true"
           - name: DATABASE_HOST
             value: "mysql"
           - name: DATABASE_PORT
