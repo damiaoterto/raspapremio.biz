@@ -1,6 +1,6 @@
 FROM php:8.4-fpm
 
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -28,7 +28,7 @@ RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY ./composer.json ./composer.lock ./
-COPY ./ /var/www/html
+COPY ./ /var/www
 
 RUN composer install --no-dev --optimize-autoloader
 

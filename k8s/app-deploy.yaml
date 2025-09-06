@@ -71,7 +71,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "cp -r /var/www/html. /app-code-volume/"]
+              command: ["/bin/sh", "-c", "cp -r /var/www. /app-code-volume/"]
         volumeMounts:
         - name: shared-code
           mountPath: /app-code-volume
