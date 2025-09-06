@@ -7,8 +7,10 @@ ini_set('display_startup_errors', 1);
 include('./conexao.php');
 
 $inMaintenance = $_ENV['MAINTENANCE'] === 'true';
+$allowedIps = explode(',', $_ENV['MAINTENANCE_ALLOWED_IPS']);
+$foundIps = array_search($_SERVER['REMOTE_ADDR'], $allowedIps);
 
-if ($inMaintenance) {
+if ($inMaintenance && !$foundIps) {
     require_once __DIR__.'/maintenance.php';
     return;
 }
