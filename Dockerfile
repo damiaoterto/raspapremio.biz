@@ -1,6 +1,6 @@
-FROM php:8.4-fpm
+FROM php:8.4-apache
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -26,15 +26,17 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 
+RUN a2enmod rewrite
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY ./composer.json ./composer.lock ./
-COPY ./ /var/www
+COPY ./ ./
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install
 
-RUN chown -R www-data:www-data /var/www
-# USER www-data
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 775 /var/www/html
 
-EXPOSE 9000
+EXPOSE 80
 
-CMD ["php-fpm"]
+CMD ["apache2-foreground"]
