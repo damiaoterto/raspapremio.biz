@@ -21,7 +21,18 @@ spec:
             name: php-app-service
             port:
               number: 80
+  - host: www.raspapremio.biz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: php-app-service
+            port:
+              number: 80
   tls:
   - hosts:
     - raspapremio.biz
+    - www.raspapremio.biz
     secretName: raspapremio-app-tls
