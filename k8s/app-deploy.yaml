@@ -53,7 +53,7 @@ spec:
         #   mountPath: /home/thelord.space/logs
 
       - name: php-fpm
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:25362f3a67bca4ad45490c034a0eb748efecb4d7e359be13a343090e029099a8
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:ea1828734c2692dd03cb5d0ab3647a40976618fd2e7bd3eb2452a484bb354454
         env:
           - name: DB_HOST
             value: "mysql"
