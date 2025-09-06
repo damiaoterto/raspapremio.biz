@@ -16,7 +16,7 @@ spec:
       - name: harbor-credentials
 
       volumes:
-      - name: shared-code
+      - name: app-code-volume
         emptyDir: {}
       - name: nginx-config-volume
         configMap:
@@ -25,20 +25,22 @@ spec:
         emptyDir: {}
       - name: nginx-run
         emptyDir: {}
-      # Este volume de logs não é mais necessário, pois seu Nginx agora loga para stdout/stderr
-      # - name: nginx-logs
-      #   emptyDir: {}
 
       containers:
       - name: nginx
         image: nginx:stable-alpine
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
         ports:
         - containerPort: 80
+        startupProbe:
+          exec:
+            command:
+            - test
+            - -f
+            - /var/www/html/index.php
+          failureThreshold: 30
+          periodSeconds: 5
         volumeMounts:
-        - name: shared-code
+        - name: app-code-volume
           mountPath: /var/www/html
           readOnly: true
         - name: nginx-config-volume
@@ -48,12 +50,16 @@ spec:
           mountPath: /var/cache/nginx
         - name: nginx-run
           mountPath: /run
-        # Este volumeMount também não é mais necessário
-        # - name: nginx-logs
-        #   mountPath: /home/thelord.space/logs
 
       - name: php-fpm
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:dcb84cefb483497255f0b658c00a81c02bc2aadf7ac48b697c4ca234d0aa2df2
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /var/www/. /var/www/html/"]
+        volumeMounts:
+        - name: app-code-volume
+          mountPath: /var/www/html
         env:
           - name: DB_HOST
             value: "mysql"
@@ -68,10 +74,3 @@ spec:
               secretKeyRef:
                 name: mysql-secret
                 key: ROOT_PASSWORD
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/sh", "-c", "cp -r /var/www. /app-code-volume/"]
-        volumeMounts:
-        - name: shared-code
-          mountPath: /app-code-volume

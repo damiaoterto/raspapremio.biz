@@ -5,52 +5,22 @@ metadata:
 data:
   default.conf: |
     server {
-      # Escuta na porta 80 (padrão HTTP)
-      listen 80;
+        listen 80;
+        # Usaremos /var/www/html como o diretório raiz.
+        root /var/www/html;
+        index index.php;
 
-      # Opcional: defina o nome do seu servidor (domínio)
-      # server_name seu-dominio.com;
+        access_log /dev/stdout;
+        error_log /dev/stderr;
 
-      # Define o diretório raiz onde seus arquivos .php e estáticos estão localizados
-      # Altere para o caminho correto da sua aplicação
-      root /var/www;
+        location / {
+            try_files $uri $uri/ =404;
+        }
 
-      # Define os arquivos de índice a serem procurados ao acessar um diretório
-      # O Nginx tentará carregar index.php primeiro.
-      index index.php index.html index.htm;
-
-      # Bloco para tratar requisições gerais (arquivos estáticos como CSS, JS, imagens)
-      location / {
-          # Tenta encontrar um arquivo com o nome exato da URI.
-          # Se não encontrar, retorna um erro 404.
-          try_files $uri $uri/ =404;
-      }
-
-      # Bloco principal para lidar com todos os arquivos que terminam em .php
-      location ~ \.php$ {
-          # Inclui os parâmetros FastCGI padrão. Essencial para a comunicação.
-          include fastcgi_params;
-
-          # Passa a requisição para o processo PHP-FPM.
-          # O endereço pode variar dependendo da sua configuração:
-          # - "127.0.0.1:9000" é comum quando Nginx e PHP-FPM estão na mesma máquina/pod.
-          # - "php-fpm:9000" é comum em ambientes com Docker Compose ou Kubernetes,
-          #   onde "php-fpm" é o nome do serviço.
-          fastcgi_pass 127.0.0.1:9000;
-
-          # Define o nome do script que o PHP-FPM deve executar.
-          # Esta é a linha mais importante: ela monta o caminho completo para o arquivo .php.
-          # Ex: /var/www/html/sua-pagina.php
-          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-
-          # Opcional, mas recomendado para segurança:
-          # Verifica se o arquivo .php realmente existe no disco antes de passar para o PHP-FPM.
-          # Se não existir, retorna 404.
-          try_files $uri =404;
-      }
-
-      # Opcional: Impede o acesso a arquivos ocultos (como .htaccess, .git)
-      location ~ /\. {
-          deny all;
-      }
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_pass   127.0.0.1:9000;
+            # Garante que o Nginx passe o caminho correto para o PHP-FPM
+            fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
     }
