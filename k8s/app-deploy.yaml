@@ -14,19 +14,11 @@ spec:
     spec:
       imagePullSecrets:
       - name: harbor-credentials
-
-      volumes:
-      - name: app-code-volume
-        emptyDir: {}
-
       containers:
       - name: php-apache
         image: harbor.tewe.com.br/platforms/raspapremio@sha256:24889f3ed6bea90ffa88c65a6c42ce577beed813766ab92ddbffa44d4c39a4f3
         ports:
           - containerPort: 80
-        volumeMounts:
-        - name: app-code-volume
-          mountPath: /var/www/html
         env:
           - name: DB_HOST
             value: "mysql"
