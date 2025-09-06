@@ -53,7 +53,7 @@ spec:
         #   mountPath: /home/thelord.space/logs
 
       - name: php-fpm
-        image: harbor.tewe.com.br/platforms/raspapremio@sha256:ea1828734c2692dd03cb5d0ab3647a40976618fd2e7bd3eb2452a484bb354454
+        image: harbor.tewe.com.br/platforms/raspapremio@sha256:af3e4424a2c47b2d44ae2e8c767d48772ff798ef55945d1b8981ae62e5bac92a
         env:
           - name: DB_HOST
             value: "mysql"
@@ -71,7 +71,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "cp -r /var/www/. /app-code-volume/"]
+              command: ["/bin/sh", "-c", "cp -r /var/www/html. /app-code-volume/"]
         volumeMounts:
         - name: shared-code
           mountPath: /app-code-volume
