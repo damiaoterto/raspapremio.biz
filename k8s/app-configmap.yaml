@@ -5,26 +5,21 @@ metadata:
 data:
   default.conf: |
     server {
-      listen 80;
-      index index.php index.html;
-      server_name localhost;
-      root /var/www;
+        listen 80;
+        server_name localhost;
+        root /var/www;
+        index index.php;
 
-      location / {
-          try_files $uri $uri/ /index.php?$query_string;
-      }
+        access_log /dev/stdout;
+        error_log /dev/stderr;
 
-      location ~ \.php$ {
-          try_files $uri =404;
-          fastcgi_split_path_info ^(.+\.php)(/.+)$;
-          fastcgi_pass 127.0.0.1:9000;
-          fastcgi_index index.php;
-          include fastcgi_params;
-          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-          fastcgi_param PATH_INFO $fastcgi_path_info;
-      }
+        location / {
+            try_files $uri $uri/ =404;
+        }
 
-      location ~ /\.ht {
-          deny all;
-      }
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
     }
