@@ -26,11 +26,15 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 
+COPY ./.htaccess .htaccess
+COPY ./docker/apache/apache-custom.conf /etc/apache2/conf-available/apache-custom.conf
+
+RUN a2enconf apache-custom
 RUN a2enmod rewrite
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY ./composer.json ./composer.lock ./
-COPY ./ ./
+COPY . /var/www/html/
 
 RUN composer install
 
