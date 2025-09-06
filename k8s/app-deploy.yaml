@@ -20,15 +20,15 @@ spec:
         ports:
           - containerPort: 80
         env:
-          - name: DB_HOST
+          - name: DATABASE_HOST
             value: "mysql"
-          - name: DB_PORT
+          - name: DATABASE_PORT
             value: "3306"
-          - name: DB_DATABASE
+          - name: DATABASE_NAME
             value: "meu_banco"
-          - name: DB_USERNAME
+          - name: DATABASE_USER
             value: "root"
-          - name: DB_PASSWORD
+          - name: DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
