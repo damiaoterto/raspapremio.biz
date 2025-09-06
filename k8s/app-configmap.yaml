@@ -7,7 +7,8 @@ data:
     server {
         listen 80;
         server_name localhost;
-        root /var/www;
+        # --- ALTERAÇÃO 1: Mude o root para o caminho do volume ---
+        root /app-code;
         index index.php;
 
         access_log /dev/stdout;
@@ -20,6 +21,7 @@ data:
         location ~ \.php$ {
             include fastcgi_params;
             fastcgi_pass   127.0.0.1:9000;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            # --- ALTERAÇÃO 2: Aponte o SCRIPT_FILENAME para o novo root ---
+            fastcgi_param  SCRIPT_FILENAME /app-code$fastcgi_script_name;
         }
     }
