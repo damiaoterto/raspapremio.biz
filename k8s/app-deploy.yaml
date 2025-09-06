@@ -56,7 +56,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "cp -r /var/www/. /var/www/html/"]
+              command: ["/bin/sh", "-c", "set -ex; cp -r /var/www/. /var/www/html/"]
         volumeMounts:
         - name: app-code-volume
           mountPath: /var/www/html
