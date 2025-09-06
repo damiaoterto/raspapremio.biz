@@ -32,7 +32,7 @@ COPY ./ ./
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www
+# RUN chown -R www-data:www-data /var/www
 # USER www-data
 
 EXPOSE 9000
