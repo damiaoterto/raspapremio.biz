@@ -1,11 +1,11 @@
 <?php
+require_once '../conexao.php';
+
 if (isset($_SESSION['usuario_id'])) {
     $_SESSION['message'] = ['type' => 'warning', 'text' => 'Você já está logado!'];
     header("Location: /");
     exit;
 }
-
-require_once '../conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['message'] = ['type' => 'success', 'text' => 'Login realizado com sucesso!'];
-
         session_write_close();
 
         header("Location: /");
