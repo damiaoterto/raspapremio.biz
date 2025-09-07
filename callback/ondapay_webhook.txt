@@ -1,0 +1,61 @@
+07/09/2025 22:42:58 - POST request received
+07/09/2025 22:42:58 - PAYLOAD ONDAPAY: 
+07/09/2025 22:42:58 - ----------------------------------------------------------
+07/09/2025 22:43:02 - POST request received
+07/09/2025 22:43:02 - PAYLOAD ONDAPAY: Array
+(
+    [status] => PAID_OUT
+    [type_transaction] => CASH_IN
+    [transaction_id] => TRX-20250907161917-6798
+    [amount] => 6.96
+    [net_amount] => 6.96
+    [external_id] => pedido-001
+    [payer] => Array
+        (
+            [name] => João da Silva
+            [document] => 12345678901
+            [email] => joao@email.com
+        )
+
+)
+
+07/09/2025 22:43:02 - ----------------------------------------------------------
+07/09/2025 22:43:02 - INICIANDO PROCESSO PARA TXN: TRX-20250907161917-6798
+07/09/2025 22:43:02 - ERRO: Depósito não encontrado para TXN: TRX-20250907161917-6798
+07/09/2025 22:43:22 - POST request received
+07/09/2025 22:43:22 - PAYLOAD ONDAPAY: Array
+(
+    [status] => PAID_OUT
+    [type_transaction] => CASH_IN
+    [transaction_id] => TRX-20250907133049-7941
+    [amount] => 6.96
+    [net_amount] => 6.96
+    [external_id] => pedido-001
+    [payer] => Array
+        (
+            [name] => João da Silva
+            [document] => 12345678901
+            [email] => joao@email.com
+        )
+
+)
+
+07/09/2025 22:43:22 - ----------------------------------------------------------
+07/09/2025 22:43:22 - INICIANDO PROCESSO PARA TXN: TRX-20250907133049-7941
+07/09/2025 22:43:22 - DEPÓSITO ENCONTRADO: Array
+(
+    [id] => 31
+    [user_id] => 488
+    [valor] => 5.00
+    [status] => PENDING
+)
+
+07/09/2025 22:43:22 - DEPÓSITO ATUALIZADO PARA PAID
+07/09/2025 22:43:22 - SALDO CREDITADO: R$ 5.00 para usuário 488
+07/09/2025 22:43:22 - USUÁRIO DATA: Array
+(
+    [indicacao] => 
+)
+
+07/09/2025 22:43:22 - USUÁRIO SEM INDICAÇÃO
+07/09/2025 22:43:22 - TRANSAÇÃO FINALIZADA COM SUCESSO

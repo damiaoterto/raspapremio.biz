@@ -245,7 +245,7 @@ body {
 /* Steps Section */
 .steps-section {
     padding: 4rem 2rem;
-    background: 
+    background:
         radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
 }
@@ -270,12 +270,12 @@ body {
     left: 12.5%;
     right: 12.5%;
     height: 2px;
-    background: linear-gradient(90deg, 
-        #22c55e 0%, 
-        #22c55e 33%, 
-        rgba(34, 197, 94, 0.3) 33%, 
-        rgba(34, 197, 94, 0.3) 66%, 
-        rgba(34, 197, 94, 0.3) 66%, 
+    background: linear-gradient(90deg,
+        #22c55e 0%,
+        #22c55e 33%,
+        rgba(34, 197, 94, 0.3) 33%,
+        rgba(34, 197, 94, 0.3) 66%,
+        rgba(34, 197, 94, 0.3) 66%,
         rgba(34, 197, 94, 0.3) 100%
     );
     z-index: 1;
@@ -330,7 +330,7 @@ body {
 .step-icon.active {
     border-color: #22c55e;
     color: #22c55e;
-    box-shadow: 
+    box-shadow:
         0 0 30px rgba(34, 197, 94, 0.3),
         0 0 60px rgba(34, 197, 94, 0.1);
     background: linear-gradient(145deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
@@ -372,7 +372,7 @@ body {
 /* Games Section */
 .games-section {
     padding: 4rem 2rem;
-    background: 
+    background:
         radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.03) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
 }
@@ -407,7 +407,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     opacity: 0;
@@ -422,7 +422,7 @@ body {
 .game-category:hover {
     transform: translateY(-8px);
     border-color: rgba(34, 197, 94, 0.4);
-    box-shadow: 
+    box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.3),
         0 0 40px rgba(34, 197, 94, 0.1);
 }
@@ -447,7 +447,7 @@ body {
 .game-category:hover .game-icon {
     border-color: #22c55e;
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.15) 100%);
-    box-shadow: 
+    box-shadow:
         0 0 40px rgba(34, 197, 94, 0.3),
         0 0 80px rgba(34, 197, 94, 0.1);
     transform: scale(1.05);
@@ -524,59 +524,59 @@ body {
     .games-section {
         padding: 3rem 1rem;
     }
-    
+
     .steps-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
-    
+
     .steps-grid::before {
         display: none;
     }
-    
+
     .step-icon {
         width: 80px;
         height: 80px;
         font-size: 2rem;
         margin-bottom: 1rem;
     }
-    
+
     .step-title {
         font-size: 1.1rem;
         margin-bottom: 0.5rem;
     }
-    
+
     .step-description {
         font-size: 0.9rem;
     }
-    
+
     .games-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .game-category {
         padding: 2rem 1.5rem;
         border-radius: 20px;
     }
-    
+
     .game-icon {
         width: 100px;
         height: 100px;
         font-size: 2.5rem;
         margin-bottom: 1.5rem;
     }
-    
+
     .game-title {
         font-size: 1.6rem;
         margin-bottom: 0.75rem;
     }
-    
+
     .game-description {
         font-size: 0.9rem;
         margin-bottom: 1.5rem;
     }
-    
+
     .game-btn {
         padding: 0.875rem 1.75rem;
         font-size: 0.9rem;
@@ -588,33 +588,33 @@ body {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .step-icon {
         width: 90px;
         height: 90px;
         font-size: 2.2rem;
         margin-bottom: 1.25rem;
     }
-    
+
     .step-title {
         font-size: 1.2rem;
         margin-bottom: 0.75rem;
     }
-    
+
     .game-category {
         padding: 2rem 1rem;
     }
-    
+
     .game-icon {
         width: 90px;
         height: 90px;
         font-size: 2.2rem;
     }
-    
+
     .game-title {
         font-size: 1.4rem;
     }
-    
+
     .game-btn {
         padding: 0.75rem 1.5rem;
         font-size: 0.85rem;
@@ -773,29 +773,29 @@ body {
     .nav-menu {
         display: none;
     }
-    
+
     .hero-banner {
         flex-direction: column;
         text-align: center;
         gap: 2rem;
     }
-    
+
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-subtitle {
         font-size: 2rem;
     }
-    
+
     .steps-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .games-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -806,11 +806,11 @@ body {
     .steps-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.5rem;
     }
@@ -833,4 +833,27 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #22c55e;
+}
+
+.primary-text {
+    color: #22c55e;
+}
+
+.term-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12rem 10rem;
+}
+
+.term-container header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+
+.term-welcome {
+    margin-bottom: 3rem;
 }

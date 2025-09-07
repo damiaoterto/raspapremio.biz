@@ -18,16 +18,16 @@
                     Raspadinhas e outros jogos de azar são regulamentados e cobertos pela nossa licença de jogos. Jogue com responsabilidade.
                 </p>
             </div>
-                         
+
             <div class="footer-section">
                 <h3>Regulamentos</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Jogo responsável</a></li>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="/jogo">Jogo responsável</a></li>
+                    <li><a href="/privacidade">Política de Privacidade</a></li>
+                    <li><a href="/termo">Termos de Uso</a></li>
                 </ul>
             </div>
-                         
+
             <div class="footer-section">
                 <h3>Ajuda</h3>
                 <ul class="footer-links">
@@ -151,26 +151,26 @@
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .footer-container {
         padding: 2rem 1rem 1.5rem;
     }
-    
+
     .footer-brand {
         gap: 0.5rem;
     }
-    
+
     .footer-logo-image {
         height: 35px;
     }
-    
+
     .footer-logo-icon {
         width: 35px;
         height: 35px;
         font-size: 1.1rem;
         border-radius: 8px;
     }
-    
+
     .footer-brand span {
         font-size: 1.1rem;
     }
@@ -180,30 +180,30 @@
     .footer-brand {
         gap: 0.4rem;
     }
-    
+
     .footer-logo-image {
         height: 32px;
     }
-    
+
     .footer-logo-icon {
         width: 32px;
         height: 32px;
         font-size: 1rem;
         border-radius: 6px;
     }
-    
+
     .footer-brand span {
         font-size: 1rem;
     }
-    
+
     .footer-section h3 {
         font-size: 1rem;
     }
-    
+
     .footer-links a {
         font-size: 0.9rem;
     }
-    
+
     .footer-description {
         font-size: 0.85rem;
     }
