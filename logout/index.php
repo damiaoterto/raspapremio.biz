@@ -1,9 +1,8 @@
 <?php
-session_start();
+require_once '../conexao.php';
 
+$_SESSION['message'] = ['type' => 'success', 'text' => 'Você saiu com sucesso!'];
 $_SESSION = [];
-
-session_destroy();
 
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
@@ -13,6 +12,8 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-header("Location: /logout/logout.php");
+session_destroy();
+
+header("Location: /");
 exit;
 ?>
