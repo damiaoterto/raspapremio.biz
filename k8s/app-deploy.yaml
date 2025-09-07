@@ -16,7 +16,7 @@ spec:
       - name: harbor-credentials
       containers:
       - name: php-apache
-        image: harbor.tewe.com.br/platform/raspapremio.biz@sha256:6cba692a9e4311da40f584b4becd935b32184856f53811ae3930c720931c0ffb
+        image: harbor.tewe.com.br/platform/raspapremio.biz@sha256:2f5e93dae28daf9ed44dfbd9626938d681bd5f6e15f80af6ad8ecc78f9168b73
         ports:
           - containerPort: 80
         env:
