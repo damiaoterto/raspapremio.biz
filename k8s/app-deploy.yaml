@@ -21,7 +21,7 @@ spec:
           - containerPort: 80
         env:
           - name: MAINTENANCE
-            value: "true"
+            value: "false"
           - name: MAINTENANCE_ALLOWED_IPS
             value: "191.177.163.136"
           - name: DATABASE_HOST

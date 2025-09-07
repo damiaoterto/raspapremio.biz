@@ -4,7 +4,7 @@
 
 if (file_exists('./conexao.php')) {
    include('./conexao.php');
-} 
+}
 elseif (file_exists('../inc/conexao.php')) {
    include('../inc/conexao.php');
 }
@@ -17,7 +17,7 @@ try {
    $stmt = $pdo->prepare("SELECT * FROM config WHERE id = 1 LIMIT 1");
    $stmt->execute();
    $config = $stmt->fetch(PDO::FETCH_ASSOC);
-   
+
    $nomeSite = $config['nome_site'] ?? 'Raspadinha';
    $logoSite = $config['logo'] ?? null;
    $depositoMin = $config['deposito_min'] ?? 0;
@@ -49,7 +49,7 @@ if (isset($_SESSION['usuario_id'])) {
 
        if($usuario['banido'] == 1){
          $_SESSION = [];
-         
+
          session_destroy();
          @session_start();
          $_SESSION['message'] = ['type' => 'failure', 'text' => 'Você está banido!'];
@@ -63,7 +63,7 @@ if (isset($_SESSION['usuario_id'])) {
        $_SESSION['message'] = ['type' => 'failure', 'text' => 'Erro na consulta!'];
        echo "Erro na consulta: " . $e->getMessage();
    }
-} 
+}
 ?>
 
 <!-- Bootstrap Icons -->
@@ -93,12 +93,12 @@ if (isset($_SESSION['usuario_id'])) {
                 </div>
             <?php endif; ?>
         </a>
-        
+
         <!-- Mobile Menu Button -->
         <div class="mobile-menu-btn">
             <i id="menuBtn" class="bi bi-list"></i>
         </div>
-        
+
         <!-- Navigation -->
         <nav>
             <ul class="nav-menu">
@@ -107,7 +107,7 @@ if (isset($_SESSION['usuario_id'])) {
             <!--    <li><a href="/bingo" class="nav-link">Bingo</a></li> -->
             </ul>
         </nav>
-        
+
         <!-- Header Actions -->
         <div class="header-actions">
             <?php if(!isset($usuario)): ?>
@@ -123,13 +123,13 @@ if (isset($_SESSION['usuario_id'])) {
             <?php else: ?>
                 <!-- Logged In -->
                 <?php $primeiroNome = explode(' ', $usuario['nome'])[0]; ?>
-                
+
                 <!-- Balance Display -->
                 <div class="balance-display">
                     <i class="bi bi-wallet2"></i>
                     <span id="headerSaldo">R$ <?php echo number_format($usuario['saldo'], 2, ',', '.'); ?></span>
                 </div>
-                
+
                 <!-- Deposit Button -->
                 <button onclick="openDepositModal()" class="btn-deposit">
                     <i class="bi bi-plus-circle"></i>
@@ -151,44 +151,44 @@ if (isset($_SESSION['usuario_id'])) {
                                 Administrador
                             </a>
                         <?php endif; ?>
-                        
+
                         <a href="/cartelas" class="dropdown-item">
                             <i class="bi bi-grid-3x3-gap"></i>
                             Jogar
                         </a>
-                        
+
                         <a href="/perfil" class="dropdown-item">
                             <i class="bi bi-person"></i>
                             Perfil
                         </a>
-                        
+
                         <a href="/afiliados" class="dropdown-item">
                             <i class="bi bi-people"></i>
                             Indique e Ganhe
                         </a>
-                        
+
                         <button onclick="openDepositModal()" class="dropdown-item">
                             <i class="bi bi-plus-circle"></i>
                             Depósito
                         </button>
-                        
+
                         <button onclick="openWithdrawModal(<?php echo $usuario['saldo'];?>)" class="dropdown-item">
                             <i class="bi bi-dash-circle"></i>
                             Saque
                         </button>
-                        
+
                         <a href="/transacoes" class="dropdown-item">
                             <i class="bi bi-arrow-left-right"></i>
                             Transações
                         </a>
-                        
+
                         <a href="/apostas" class="dropdown-item">
                             <i class="bi bi-ticket-perforated"></i>
                             Apostas
                         </a>
-                        
+
                         <div class="dropdown-divider"></div>
-                        
+
                         <a href="/logout" class="dropdown-item logout">
                             <i class="bi bi-box-arrow-right"></i>
                             Sair
@@ -216,7 +216,7 @@ if (isset($_SESSION['usuario_id'])) {
             <i class="bi bi-x"></i>
         </button>
     </div>
-    
+
     <nav class="sidebar-nav">
         <a href="/" class="sidebar-item">
             <i class="bi bi-house"></i>
@@ -235,7 +235,7 @@ if (isset($_SESSION['usuario_id'])) {
 
         <?php if (isset($_SESSION['usuario_id'])): ?>
             <div class="sidebar-divider"></div>
-            
+
             <a href="/apostas" class="sidebar-item">
                 <i class="bi bi-ticket-perforated"></i>
                 <span>Minhas Apostas</span>
@@ -255,9 +255,9 @@ if (isset($_SESSION['usuario_id'])) {
                 <i class="bi bi-dash-circle"></i>
                 <span>Sacar</span>
             </button>
-            
+
             <div class="sidebar-divider"></div>
-            
+
             <a href="/logout" class="sidebar-item logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sair</span>
@@ -265,7 +265,7 @@ if (isset($_SESSION['usuario_id'])) {
         <?php endif; ?>
 
         <div class="sidebar-divider"></div>
-        
+
         <a href="https://t.me/daanrox" target="_blank" class="sidebar-item">
             <i class="bi bi-telegram"></i>
             <span>Suporte</span>
@@ -285,17 +285,17 @@ if (isset($_SESSION['usuario_id'])) {
                 <i class="bi bi-house-fill"></i>
                 <span>Início</span>
             </a>
-            
+
             <a href="/cartelas" class="bottom-nav-item">
                 <i class="bi bi-grid-3x3-gap-fill"></i>
                 <span>Jogar</span>
             </a>
-            
+
             <a href="/login" class="bottom-nav-item">
                 <i class="bi bi-person-fill"></i>
                 <span>Entrar</span>
             </a>
-            
+
             <a href="/cadastro" class="bottom-nav-item register-btn">
                 <i class="bi bi-dice-3-fill"></i>
                 <span>Registrar</span>
@@ -306,22 +306,22 @@ if (isset($_SESSION['usuario_id'])) {
                 <i class="bi bi-house-fill"></i>
                 <span>Início</span>
             </a>
-            
+
             <a href="/cartelas" class="bottom-nav-item">
                 <i class="bi bi-grid-3x3-gap-fill"></i>
                 <span>Jogar</span>
             </a>
-            
+
             <button onclick="openDepositModal()" class="bottom-nav-item deposit-btn">
                 <i class="bi bi-plus-circle-fill"></i>
                 <span>Depositar</span>
             </button>
-            
+
             <a href="/apostas" class="bottom-nav-item">
                 <i class="bi bi-ticket-perforated-fill"></i>
                 <span>Apostas</span>
             </a>
-            
+
             <a href="/perfil" class="bottom-nav-item">
                 <i class="bi bi-person-circle"></i>
                 <span>Perfil</span>
@@ -342,13 +342,13 @@ if (isset($_SESSION['usuario_id'])) {
                 <i class="bi bi-x"></i>
             </button>
         </div>
-        
+
         <div class="install-benefits">
             <div class="benefits-title">
                 <i class="bi bi-gift"></i>
                 <span>Vantagens do App</span>
             </div>
-            
+
             <div class="benefits-list">
                 <div class="benefit-item">
                     <i class="bi bi-check-circle"></i>
@@ -372,7 +372,7 @@ if (isset($_SESSION['usuario_id'])) {
                 </div>
             </div>
         </div>
-        
+
         <div class="install-instructions">
             <div class="platform-tabs">
                 <button class="platform-tab active" data-platform="ios">
@@ -384,7 +384,7 @@ if (isset($_SESSION['usuario_id'])) {
                     Android
                 </button>
             </div>
-            
+
             <div class="platform-content active" data-platform="ios">
                 <div class="instruction-step">
                     <div class="step-number">1</div>
@@ -393,7 +393,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <p>Este site deve ser aberto no navegador Safari</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -401,7 +401,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <p><i class="bi bi-share"></i> Na barra inferior do Safari</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -409,7 +409,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <p><i class="bi bi-plus-square"></i> Role para baixo se necessário</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">4</div>
                     <div class="step-content">
@@ -418,7 +418,7 @@ if (isset($_SESSION['usuario_id'])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="platform-content" data-platform="android">
                 <div class="instruction-step">
                     <div class="step-number">1</div>
@@ -427,7 +427,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <p>Recomendamos usar o Google Chrome</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -435,7 +435,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <p><i class="bi bi-three-dots-vertical"></i> No canto superior direito</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -443,7 +443,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <p><i class="bi bi-house-add"></i> Pode aparecer automaticamente uma notificação</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">4</div>
                     <div class="step-content">
@@ -452,7 +452,7 @@ if (isset($_SESSION['usuario_id'])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="desktop-note">
                 <div class="platform-tab">
                     <i class="bi bi-display"></i>
@@ -461,7 +461,7 @@ if (isset($_SESSION['usuario_id'])) {
                 <p>No desktop, procure pelo ícone de instalação na barra de endereço do seu navegador ou um banner de instalação aparecerá automaticamente.</p>
             </div>
         </div>
-        
+
         <div class="install-modal-footer">
             <button class="install-understand-btn" onclick="closeInstallModal()">
                 Entendi, obrigado!
@@ -506,7 +506,7 @@ if (isset($_SESSION['usuario_id'])) {
 }
 
 .logo-image {
-    height: 45px;
+    height: 65px;
     width: auto;
     max-width: 200px;
     object-fit: contain;
@@ -528,14 +528,14 @@ if (isset($_SESSION['usuario_id'])) {
     font-size: 1.4rem;
     color: #ffffff;
     font-weight: 800;
-    box-shadow: 
+    box-shadow:
         0 8px 20px rgba(34, 197, 94, 0.3),
         0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
 
 .logo-icon:hover {
-    box-shadow: 
+    box-shadow:
         0 12px 30px rgba(34, 197, 94, 0.4),
         0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-1px);
@@ -1042,37 +1042,37 @@ if (isset($_SESSION['usuario_id'])) {
         font-size: 0.8rem;
         gap: 0.5rem;
     }
-    
+
     .download-btn {
         padding: 0.3rem 0.8rem;
         font-size: 0.75rem;
     }
-    
+
     .close-banner {
         right: 0.75rem;
         font-size: 1.1rem;
     }
-    
+
     .header.with-banner {
         top: 40px;
     }
-    
+
     .install-modal-content {
         margin: 1rem;
         max-height: 85vh;
     }
-    
+
     .install-modal-header {
         padding: 1.5rem 1.5rem 1rem;
     }
-    
+
     .install-benefits,
     .install-instructions,
     .install-modal-footer {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
-    
+
     .platform-tabs {
         flex-direction: column;
     }
@@ -1088,47 +1088,47 @@ if (isset($_SESSION['usuario_id'])) {
         padding: 0.4rem 0.75rem;
         font-size: 0.75rem;
     }
-    
+
     .app-download-banner span {
         max-width: calc(100% - 120px);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    
+
     .download-btn {
         padding: 0.25rem 0.6rem;
         font-size: 0.7rem;
         margin-left: 0.25rem;
     }
-    
+
     .close-banner {
         right: 0.5rem;
         font-size: 1rem;
     }
-    
+
     .header.with-banner {
         top: 35px;
     }
-    
+
     .install-modal {
         padding: 0.5rem;
     }
-    
+
     .install-modal-header {
         padding: 1rem;
     }
-    
+
     .install-modal-icon {
         width: 50px;
         height: 50px;
         font-size: 1.5rem;
     }
-    
+
     .install-modal-header h2 {
         font-size: 1.3rem;
     }
-    
+
     .install-benefits,
     .install-instructions,
     .install-modal-footer {
@@ -1139,25 +1139,25 @@ if (isset($_SESSION['usuario_id'])) {
     .bottom-nav-container {
         padding: 0 0.5rem;
     }
-    
+
     .bottom-nav-item {
         min-width: 50px;
         padding: 0.4rem 0.2rem;
     }
-    
+
     .bottom-nav-item i {
         font-size: 1.1rem;
     }
-    
+
     .bottom-nav-item span {
         font-size: 0.65rem;
     }
-    
+
     .bottom-nav-item.deposit-btn i,
     .bottom-nav-item.register-btn i {
         font-size: 1.3rem;
     }
-    
+
     .bottom-nav-item.deposit-btn span,
     .bottom-nav-item.register-btn span {
         font-size: 0.7rem;
@@ -1484,22 +1484,22 @@ if (isset($_SESSION['usuario_id'])) {
         align-items: center;
         justify-content: space-between;
     }
-    
+
     .logo {
         font-size: 1.1rem;
         flex-shrink: 0;
     }
-    
+
     .logo-image {
         height: 35px;
     }
-    
+
     .logo-icon {
         width: 35px;
         height: 35px;
         font-size: 1.1rem;
     }
-    
+
     .mobile-menu-btn {
         display: flex;
         align-items: center;
@@ -1514,76 +1514,76 @@ if (isset($_SESSION['usuario_id'])) {
         margin-right: 1rem;
         flex-shrink: 0;
     }
-    
+
     .mobile-menu-btn:hover {
         background: rgba(255, 255, 255, 0.1);
     }
-    
+
     .nav-menu {
         display: none;
     }
-    
+
     .header-actions {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         flex-shrink: 0;
     }
-    
+
     .balance-display {
         padding: 0.5rem 0.75rem;
         font-size: 0.85rem;
         min-width: auto;
         border-radius: 8px;
     }
-    
+
     .btn-deposit {
         padding: 0.5rem 0.75rem;
         font-size: 0.85rem;
         border-radius: 8px;
         min-width: auto;
     }
-    
+
     .deposit-text {
         display: none;
     }
-    
+
     .user-btn {
         padding: 0.5rem 0.75rem;
         font-size: 0.85rem;
         border-radius: 8px;
         min-width: auto;
     }
-    
+
     .user-name {
         display: none;
     }
-    
+
     .dropdown-arrow {
         font-size: 0.8rem;
     }
-    
+
     .btn-login {
         font-size: 0.85rem;
         padding: 0.5rem;
     }
-    
+
     .login-text {
         display: none;
     }
-    
+
     .btn-register {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
         border-radius: 8px;
     }
-    
+
     .dropdown-menu {
         right: 0;
         min-width: 180px;
         margin-top: 0.25rem;
     }
-    
+
     .dropdown-item {
         padding: 0.6rem 0.8rem;
         font-size: 0.85rem;
@@ -1595,54 +1595,54 @@ if (isset($_SESSION['usuario_id'])) {
         padding: 0 0.75rem;
         gap: 0.5rem;
     }
-    
+
     .logo-image {
         height: 32px;
     }
-    
+
     .logo-icon {
         width: 32px;
         height: 32px;
         font-size: 1rem;
     }
-    
+
     .mobile-menu-btn {
         width: 36px;
         height: 36px;
         font-size: 1.2rem;
         margin-right: 0.75rem;
     }
-    
+
     .header-actions {
         gap: 0.4rem;
     }
-    
+
     .balance-display {
         padding: 0.4rem 0.6rem;
         font-size: 0.8rem;
         min-width: auto;
     }
-    
+
     .btn-deposit,
     .user-btn {
         padding: 0.4rem 0.6rem;
         font-size: 0.8rem;
         min-width: 36px;
     }
-    
+
     .btn-register {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
-    
+
     .dropdown-arrow {
         font-size: 0.7rem;
     }
-    
+
     .sidebar-logo-image {
         height: 35px;
     }
-    
+
     .sidebar-logo-icon {
         width: 35px;
         height: 35px;
@@ -1657,14 +1657,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const bannerClosed = localStorage.getItem('appBannerClosed');
     const appBanner = document.getElementById('appBanner');
     const header = document.querySelector('.header');
-    
+
     if (!bannerClosed && appBanner) {
         appBanner.style.display = 'flex';
         header.classList.add('with-banner');
     } else {
         header.style.top = '0';
     }
-    
+
     // Banner close function
     window.closeBanner = function() {
         appBanner.style.display = 'none';
@@ -1672,36 +1672,36 @@ document.addEventListener('DOMContentLoaded', function() {
         header.style.top = '0';
         localStorage.setItem('appBannerClosed', 'true');
     };
-    
+
     // Install modal functions
     window.openInstallModal = function() {
         document.getElementById('installModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     };
-    
+
     window.closeInstallModal = function() {
         document.getElementById('installModal').classList.remove('active');
         document.body.style.overflow = '';
     };
-    
+
     // Platform tabs functionality
     const platformTabs = document.querySelectorAll('.platform-tab[data-platform]');
     const platformContents = document.querySelectorAll('.platform-content[data-platform]');
-    
+
     platformTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const platform = tab.dataset.platform;
-            
+
             // Remove active class from all tabs and contents
             platformTabs.forEach(t => t.classList.remove('active'));
             platformContents.forEach(c => c.classList.remove('active'));
-            
+
             // Add active class to clicked tab and corresponding content
             tab.classList.add('active');
             document.querySelector(`.platform-content[data-platform="${platform}"]`).classList.add('active');
         });
     });
-    
+
     // Close modal when clicking outside
     document.getElementById('installModal').addEventListener('click', function(e) {
         if (e.target === this) {
@@ -1750,20 +1750,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function setActiveBottomNavItem() {
         const currentPath = window.location.pathname;
         const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-        
+
         bottomNavItems.forEach(item => {
             item.classList.remove('active');
-            
+
             const href = item.getAttribute('href');
             if (href && (href === currentPath || (currentPath === '/' && href === '/'))) {
                 item.classList.add('active');
             }
         });
     }
-    
+
     // Set active state on page load
     setActiveBottomNavItem();
-    
+
     // Update active state when clicking bottom nav items
     document.querySelectorAll('.bottom-nav-item').forEach(item => {
         item.addEventListener('click', function() {
@@ -1780,6 +1780,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-   
+
 </script>
 <!-- Modais will be included separately -->
