@@ -49,9 +49,7 @@ try {
     }
 
     // Configurar URLs base
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-    $host = $_SERVER['HTTP_HOST'];
-    $base = $protocol . $host;
+    $base = isset($_ENV['BASE_URL']) ? $_ENV['BASE_URL'] : 'https://raspapremio.biz';
 
     $external_id = uniqid();
     $idempotencyKey = uniqid() . '-' . time();
@@ -87,12 +85,12 @@ try {
         }
 
         $accessToken = $authData['token'];
-        $postbackUrl = $base . '/callback/ondapay.php';
+        $webhook = $base . '/callback/ondapay.php';
 
         $payload = [
             'amount' => (float)$amount,
             'external_id' => $external_id,
-            'webhook' => $postbackUrl,
+            'webhook' => $webhook,
             'description' => 'Pagamento Raspadinha',
             'payer' => [
                 'name' => $usuario['nome'],
