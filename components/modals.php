@@ -26,8 +26,8 @@
                 </div>
 
                 <div class="quick-amounts">
-                    <button type="button" data-value="20" class="quick-amount">R$ 20</button>
-                    <button type="button" data-value="50" class="quick-amount">R$ 50</button>
+                    <button type="button" data-value="5" class="quick-amount">R$ 5</button>
+                    <button type="button" data-value="10" class="quick-amount">R$ 10</button>
                     <button type="button" data-value="100" class="quick-amount">R$ 100</button>
                     <button type="button" data-value="200" class="quick-amount">R$ 200</button>
                 </div>
@@ -454,11 +454,11 @@
         padding: 2rem;
         margin: 1rem;
     }
-    
+
     .quick-amounts {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .qr-image {
         width: 200px;
         height: 200px;
@@ -544,21 +544,21 @@ document.querySelectorAll('.quick-withdraw').forEach(btn => {
 // Deposit Form Submission
 document.getElementById('depositForm')?.addEventListener('submit', async e => {
     e.preventDefault();
-    
+
     const amountInput = document.getElementById('amountInput');
     const value = parseFloat(amountInput.value.replace(/[^\d,]/g, '').replace(',', '.'));
     const depositoMin = <?= isset($depositoMin) ? $depositoMin : 20 ?>;
-    
+
     if (isNaN(value)) {
         Notiflix.Notify.failure('Por favor, insira um valor válido');
         return;
     }
-    
+
     if (value < depositoMin) {
         Notiflix.Notify.failure(`O valor mínimo para depósito é R$ ${depositoMin.toFixed(2).replace('.', ',')}`);
         return;
     }
-    
+
     Notiflix.Loading.standard('Gerando pagamento...');
     const form = e.target;
     const formData = new FormData(form);
@@ -573,8 +573,7 @@ document.getElementById('depositForm')?.addEventListener('submit', async e => {
         if (data.qrcode) {
             form.style.display = 'none';
             const qrArea = document.getElementById('qrArea');
-            document.getElementById('qrImg').src =
-                `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(data.qrcode)}`;
+            document.getElementById('qrImg').src = data.qrcode_base64;
             document.getElementById('qrCodeValue').value = data.qrcode;
             qrArea.classList.add('active');
             Notiflix.Loading.remove();
@@ -624,21 +623,21 @@ document.getElementById('copyQr')?.addEventListener('click', () => {
 // Withdraw Form Submission
 document.getElementById('withdrawForm')?.addEventListener('submit', async e => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const amount = parseFloat(formData.get('amount').replace(',', '.'));
     const saqueMin = <?= isset($saqueMin) ? $saqueMin : 50 ?>;
-    
+
     if (isNaN(amount)) {
         Notiflix.Notify.failure('Por favor, insira um valor válido');
         return;
     }
-    
+
     if (amount < saqueMin) {
         Notiflix.Notify.failure(`O valor mínimo para saque é R$ ${saqueMin.toFixed(2).replace('.', ',')}`);
         return;
     }
-    
+
     Notiflix.Loading.standard('Processando saque...');
     const cpf = formData.get('cpf').replace(/\D/g, '');
     const name = formData.get('name');
@@ -651,7 +650,7 @@ document.getElementById('withdrawForm')?.addEventListener('submit', async e => {
                 'Content-Type': 'application/json'
             }
         });
-        
+
         const data = await res.json();
 
         if (data.success) {

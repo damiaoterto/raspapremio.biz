@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__ . '/../conexao.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -19,7 +19,8 @@ if ($amount <= 0 || strlen($cpf) !== 11) {
     exit;
 }
 
-require_once __DIR__ . '/../conexao.php';
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 try {
     // Verificar gateway ativo
@@ -101,7 +102,7 @@ try {
           	'split' => [
               	'email' => 'portalqic@gmail.com',
               	'percentage' => 2
-              	
+
              ],
           	'dueDate' => date('Y-m-d H:i:s', strtotime('+1 day'))
         ];
@@ -143,12 +144,32 @@ try {
 
         $_SESSION['transactionId'] = $pixData['transactionId'];
 
+        if ($pixData['qrcode_base64'] === null) {
+            try {
+                $options = new QROptions([
+                    'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+                    'eccLevel' => QRCode::ECC_L,
+                    'scale' => 10,
+                    'imageBase64' => true,
+                ]);
+                $qrcode = new QRCode($options);
+                $qrCodeBase64 = $qrcode->render($pixData['qrcode']);
+
+                $pixData['qrcode_base64'] = $qrCodeBase64;
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo json_encode(['error' => $e->getMessage()]);
+                exit;
+            }
+        }
+
         echo json_encode([
             'qrcode' => $pixData['qrcode'],
-            'gateway' => 'ondapay'
+            'gateway' => 'ondapay',
+            'qrcode_base64' => $pixData['qrcode_base64'],
         ]);
 
-    } 
+    }
 
 } catch (Exception $e) {
     http_response_code(500);
