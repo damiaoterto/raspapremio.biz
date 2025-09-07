@@ -1,6 +1,4 @@
 <?php
-@session_start();
-
 if (file_exists('./conexao.php')) {
     include('./conexao.php');
 } elseif (file_exists('../conexao.php')) {
@@ -18,13 +16,13 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuario_id = $_SESSION['usuario_id'];
 
 try {
-    $stmt_depositos = $pdo->prepare("SELECT 
-                                    created_at, 
-                                    updated_at, 
-                                    cpf, 
-                                    valor, 
-                                    status 
-                                    FROM depositos 
+    $stmt_depositos = $pdo->prepare("SELECT
+                                    created_at,
+                                    updated_at,
+                                    cpf,
+                                    valor,
+                                    status
+                                    FROM depositos
                                     WHERE user_id = :user_id
                                     ORDER BY created_at DESC");
     $stmt_depositos->bindParam(':user_id', $usuario_id, PDO::PARAM_INT);
@@ -36,13 +34,13 @@ try {
 }
 
 try {
-    $stmt_saques = $pdo->prepare("SELECT 
-                                created_at, 
-                                updated_at, 
-                                cpf, 
-                                valor, 
-                                status 
-                                FROM saques 
+    $stmt_saques = $pdo->prepare("SELECT
+                                created_at,
+                                updated_at,
+                                cpf,
+                                valor,
+                                status
+                                FROM saques
                                 WHERE user_id = :user_id
                                 ORDER BY created_at DESC");
     $stmt_saques->bindParam(':user_id', $usuario_id, PDO::PARAM_INT);
@@ -59,18 +57,18 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - Minhas Transações</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -399,11 +397,11 @@ try {
             .transaction-header {
                 display: grid;
             }
-            
+
             .transaction-mobile {
                 display: none;
             }
-            
+
             .transaction-row {
                 display: grid;
             }
@@ -413,15 +411,15 @@ try {
             .transactions-container {
                 padding: 0 1rem;
             }
-            
+
             .header-title {
                 font-size: 2rem;
             }
-            
+
             .tabs-container {
                 padding: 1.5rem;
             }
-            
+
             .tab-button {
                 font-size: 1rem;
                 padding: 0.8rem 1rem;
@@ -500,7 +498,7 @@ try {
                                         <?= $deposito['status'] === 'PAID' ? 'Aprovado' : 'Pendente' ?>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Mobile Layout -->
                                 <div class="transaction-mobile">
                                     <div class="transaction-mobile-header">
@@ -561,7 +559,7 @@ try {
                                         <?= $saque['status'] === 'PAID' ? 'Aprovado' : 'Pendente' ?>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Mobile Layout -->
                                 <div class="transaction-mobile">
                                     <div class="transaction-mobile-header">
@@ -618,7 +616,7 @@ try {
         function toggleCPF(element) {
             const fullCPF = element.getAttribute('data-full');
             const maskedCPF = fullCPF.substring(0, 3) + '.***.***-**';
-            
+
             if (element.textContent.includes('*')) {
                 element.textContent = fullCPF;
                 element.style.color = '#22c55e';
@@ -631,13 +629,13 @@ try {
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('%c💳 Transações carregadas!', 'color: #22c55e; font-size: 16px; font-weight: bold;');
-            
+
             // Add hover effects to transaction items
             document.querySelectorAll('.transaction-item').forEach(item => {
                 item.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-2px)';
                 });
-                
+
                 item.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });

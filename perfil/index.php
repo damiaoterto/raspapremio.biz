@@ -1,6 +1,4 @@
 <?php
-@session_start();
-
 if (file_exists('./conexao.php')) {
     include('./conexao.php');
 } elseif (file_exists('../conexao.php')) {
@@ -103,18 +101,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - Meu Perfil</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -231,16 +229,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     background: var(--accent-color);
 }
 
-.stat-card.saldo::before { 
-    background: linear-gradient(180deg, #22c55e, #16a34a); 
+.stat-card.saldo::before {
+    background: linear-gradient(180deg, #22c55e, #16a34a);
 }
 
-.stat-card.depositos::before { 
-    background: linear-gradient(180deg, #3b82f6, #2563eb); 
+.stat-card.depositos::before {
+    background: linear-gradient(180deg, #3b82f6, #2563eb);
 }
 
-.stat-card.saques::before { 
-    background: linear-gradient(180deg, #f59e0b, #d97706); 
+.stat-card.saques::before {
+    background: linear-gradient(180deg, #f59e0b, #d97706);
 }
 
 .stat-header {
@@ -286,20 +284,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     margin-top: 0.25rem;
 }
 
-.stat-icon.saldo { 
-    background: rgba(34, 197, 94, 0.15); 
+.stat-icon.saldo {
+    background: rgba(34, 197, 94, 0.15);
     color: #22c55e;
     border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
-.stat-icon.depositos { 
-    background: rgba(59, 130, 246, 0.15); 
+.stat-icon.depositos {
+    background: rgba(59, 130, 246, 0.15);
     color: #3b82f6;
     border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-.stat-icon.saques { 
-    background: rgba(245, 158, 11, 0.15); 
+.stat-icon.saques {
+    background: rgba(245, 158, 11, 0.15);
     color: #f59e0b;
     border: 1px solid rgba(245, 158, 11, 0.2);
 }
@@ -317,28 +315,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         padding: 1.75rem;
         min-height: 120px;
     }
-    
+
     .stat-header {
         gap: 1rem;
         margin-bottom: 0.25rem;
     }
-    
+
     .stat-info h3 {
         font-size: 0.75rem;
         margin-bottom: 0.75rem;
     }
-    
+
     .stat-value {
         font-size: 1.7rem;
         margin-bottom: 0.25rem;
     }
-    
+
     .stat-icon {
         width: 48px;
         height: 48px;
         font-size: 1.2rem;
     }
-    
+
     .stat-footer {
         font-size: 0.75rem;
         padding-top: 0.5rem;
@@ -350,15 +348,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         padding: 1.5rem;
         min-height: 110px;
     }
-    
+
     .stat-header {
         gap: 0.75rem;
     }
-    
+
     .stat-value {
         font-size: 1.5rem;
     }
-    
+
     .stat-icon {
         width: 44px;
         height: 44px;
@@ -664,41 +662,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .perfil-container {
                 padding: 0 1rem;
             }
-            
+
             .page-title {
                 font-size: 2rem;
             }
-            
+
             .form-card {
                 padding: 2rem 1.5rem;
                 border-radius: 20px;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            
+
             .stat-card {
                 padding: 1.5rem;
             }
-            
+
             .stat-header {
                 align-items: flex-start;
                 gap: 0.75rem;
             }
-            
+
             .stat-value {
                 font-size: 1.5rem;
                 line-height: 1.3;
             }
-            
+
             .stat-icon {
                 width: 45px;
                 height: 45px;
                 font-size: 1.1rem;
             }
-            
+
             .user-avatar {
                 width: 80px;
                 height: 80px;
@@ -710,11 +708,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .form-card {
                 padding: 1.5rem 1rem;
             }
-            
+
             .form-input {
                 padding: 0.8rem 0.8rem 0.8rem 2.5rem;
             }
-            
+
             .input-icon {
                 left: 0.8rem;
             }
@@ -820,11 +818,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="input-icon">
                             <i class="bi bi-person"></i>
                         </div>
-                        <input type="text" 
-                               name="nome" 
+                        <input type="text"
+                               name="nome"
                                class="form-input"
-                               value="<?= htmlspecialchars($usuario['nome'] ?? '') ?>" 
-                               placeholder="Nome completo" 
+                               value="<?= htmlspecialchars($usuario['nome'] ?? '') ?>"
+                               placeholder="Nome completo"
                                required>
                     </div>
 
@@ -832,12 +830,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="input-icon">
                             <i class="bi bi-telephone"></i>
                         </div>
-                        <input type="text" 
-                               id="telefone" 
-                               name="telefone" 
+                        <input type="text"
+                               id="telefone"
+                               name="telefone"
                                class="form-input"
-                               value="<?= htmlspecialchars($usuario['telefone'] ?? '') ?>" 
-                               placeholder="(11) 99999-9999" 
+                               value="<?= htmlspecialchars($usuario['telefone'] ?? '') ?>"
+                               placeholder="(11) 99999-9999"
                                required>
                     </div>
 
@@ -845,11 +843,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="input-icon">
                             <i class="bi bi-envelope"></i>
                         </div>
-                        <input type="email" 
-                               name="email" 
+                        <input type="email"
+                               name="email"
                                class="form-input"
-                               value="<?= htmlspecialchars($usuario['email'] ?? '') ?>" 
-                               placeholder="seu@email.com" 
+                               value="<?= htmlspecialchars($usuario['email'] ?? '') ?>"
+                               placeholder="seu@email.com"
                                required>
                     </div>
 
@@ -865,13 +863,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="bi bi-shield-lock"></i>
                             Nova Senha
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="bi bi-lock"></i>
                             </div>
-                            <input type="password" 
-                                   name="nova_senha" 
+                            <input type="password"
+                                   name="nova_senha"
                                    class="form-input"
                                    placeholder="Digite a nova senha">
                         </div>
@@ -880,8 +878,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="input-icon">
                                 <i class="bi bi-lock-fill"></i>
                             </div>
-                            <input type="password" 
-                                   name="confirmar_senha" 
+                            <input type="password"
+                                   name="confirmar_senha"
                                    class="form-input"
                                    placeholder="Confirme a nova senha">
                         </div>
@@ -892,10 +890,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="input-icon">
                             <i class="bi bi-shield-check"></i>
                         </div>
-                        <input type="password" 
-                               name="senha_atual" 
+                        <input type="password"
+                               name="senha_atual"
                                class="form-input"
-                               placeholder="Senha atual (para confirmar alterações)" 
+                               placeholder="Senha atual (para confirmar alterações)"
                                required>
                     </div>
 
@@ -964,11 +962,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             toggleSenha.addEventListener('click', function() {
                 camposSenha.classList.toggle('active');
-                
+
                 const icon = this.querySelector('i');
                 const text = camposSenha.classList.contains('active') ? 'Cancelar' : 'Alterar senha';
                 const iconClass = camposSenha.classList.contains('active') ? 'bi-x-circle' : 'bi-key';
-                
+
                 icon.className = `bi ${iconClass}`;
                 this.innerHTML = `<i class="bi ${iconClass}"></i> ${text}`;
             });

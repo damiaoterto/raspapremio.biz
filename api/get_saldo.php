@@ -1,5 +1,4 @@
 <?php
-@session_start();
 require_once '../conexao.php';
 
 header('Content-Type: application/json');

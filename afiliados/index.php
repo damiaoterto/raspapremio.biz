@@ -1,6 +1,4 @@
 <?php
-@session_start();
-
 if (file_exists('./conexao.php')) {
     include('./conexao.php');
 } elseif (file_exists('../conexao.php')) {
@@ -19,18 +17,18 @@ $usuario_id = $_SESSION['usuario_id'];
 
 try {
     $link_indicacao = "https://" . $_SERVER['HTTP_HOST'] . "/cadastro?ref=" . $usuario_id;
-    
+
     $stmt_indicados = $pdo->prepare("SELECT COUNT(*) as total FROM usuarios WHERE indicacao = ?");
     $stmt_indicados->execute([$usuario_id]);
     $total_indicados = $stmt_indicados->fetch()['total'];
-    
-    $stmt_depositos = $pdo->prepare("SELECT SUM(d.valor) as total 
+
+    $stmt_depositos = $pdo->prepare("SELECT SUM(d.valor) as total
                                     FROM depositos d
                                     JOIN usuarios u ON d.user_id = u.id
                                     WHERE u.indicacao = ? AND d.status = 'PAID'");
     $stmt_depositos->execute([$usuario_id]);
     $total_depositado = $stmt_depositos->fetch()['total'] ?? 0;
-    
+
     // Buscar comissões CPA (se a tabela existir)
     $total_comissoes_cpa = 0;
     try {
@@ -41,7 +39,7 @@ try {
         // Tabela transacoes_afiliados não existe
         $total_comissoes_cpa = 0;
     }
-    
+
     // Buscar comissões RevShare (separando ganhos, perdas e saldo líquido)
     $total_comissoes_revshare = 0;
     $total_deducoes_revshare = 0;
@@ -51,27 +49,27 @@ try {
         $stmt_comissoes_revshare = $pdo->prepare("SELECT SUM(valor_revshare) as total FROM historico_revshare WHERE afiliado_id = ? AND valor_revshare > 0");
         $stmt_comissoes_revshare->execute([$usuario_id]);
         $total_comissoes_revshare = $stmt_comissoes_revshare->fetch()['total'] ?? 0;
-        
+
         // Deduções (apenas valores negativos, convertidos para positivo para exibição)
         $stmt_deducoes = $pdo->prepare("SELECT SUM(ABS(valor_revshare)) as total FROM historico_revshare WHERE afiliado_id = ? AND valor_revshare < 0");
         $stmt_deducoes->execute([$usuario_id]);
         $total_deducoes_revshare = $stmt_deducoes->fetch()['total'] ?? 0;
-        
+
         // Saldo líquido (ganhos - perdas)
         $stmt_saldo_liquido = $pdo->prepare("SELECT SUM(valor_revshare) as total FROM historico_revshare WHERE afiliado_id = ?");
         $stmt_saldo_liquido->execute([$usuario_id]);
         $saldo_revshare_liquido = $stmt_saldo_liquido->fetch()['total'] ?? 0;
-        
+
     } catch (PDOException $e) {
         // Tabela historico_revshare não existe ainda
         $total_comissoes_revshare = 0;
         $total_deducoes_revshare = 0;
         $saldo_revshare_liquido = 0;
     }
-    
+
     // Total de comissões (CPA + RevShare - apenas valores ganhos, não o saldo líquido)
     $total_comissoes = $total_comissoes_cpa + $total_comissoes_revshare;
-    
+
     $stmt_lista = $pdo->prepare("SELECT u.id, u.nome, u.email, u.created_at,
                                 (SELECT SUM(valor) FROM depositos WHERE user_id = u.id AND status = 'PAID') as total_depositado
                                 FROM usuarios u
@@ -79,7 +77,7 @@ try {
                                 ORDER BY u.created_at DESC");
     $stmt_lista->execute([$usuario_id]);
     $indicados = $stmt_lista->fetchAll(PDO::FETCH_ASSOC);
-    
+
 } catch (PDOException $e) {
     $_SESSION['message'] = ['type' => 'failure', 'text' => 'Erro ao carregar dados de afiliado'];
     $total_indicados = 0;
@@ -99,7 +97,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite; ?> - Programa de Afiliados</title>
-        <?php 
+        <?php
     // Se as variáveis não estiverem definidas, buscar do banco
     if (!isset($faviconSite)) {
         try {
@@ -107,7 +105,7 @@ try {
             $stmt->execute();
             $config_favicon = $stmt->fetch(PDO::FETCH_ASSOC);
             $faviconSite = $config_favicon['favicon'] ?? null;
-            
+
             // Se $nomeSite não estiver definido, buscar também
             if (!isset($nomeSite)) {
                 $stmt = $pdo->prepare("SELECT nome_site FROM config WHERE id = 1 LIMIT 1");
@@ -132,13 +130,13 @@ try {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -553,30 +551,30 @@ try {
             .afiliados-container {
                 padding: 0 1rem;
             }
-            
+
             .page-title {
                 font-size: 2rem;
             }
-            
+
             .main-card {
                 padding: 2rem 1.5rem;
                 border-radius: 20px;
             }
-            
+
             .link-input-group {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            
+
             .stat-value {
                 font-size: 2rem;
             }
-            
+
             .indicado-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
@@ -587,15 +585,15 @@ try {
             .main-card {
                 padding: 1.5rem 1rem;
             }
-            
+
             .link-section {
                 padding: 1.5rem;
             }
-            
+
             .stat-card {
                 padding: 1.5rem;
             }
-            
+
             .indicado-card {
                 padding: 1.5rem;
             }
@@ -647,7 +645,7 @@ try {
             <div class="page-header fade-in">
                 <h1 class="page-title">Programa de Afiliados</h1>
                 <p class="page-subtitle">
-                    Ganhe <span class="highlight-text">comissões</span> indicando amigos para a <?php echo $nomeSite;?>. 
+                    Ganhe <span class="highlight-text">comissões</span> indicando amigos para a <?php echo $nomeSite;?>.
                     Quanto mais eles jogarem, mais você ganha!
                 </p>
             </div>
@@ -671,17 +669,17 @@ try {
                         <i class="bi bi-link-45deg"></i>
                         Seu Link de Indicação
                     </h3>
-                    
+
                     <div class="link-input-group">
                         <div class="link-input-wrapper">
                             <i class="bi bi-link link-icon"></i>
-                            <input type="text" 
-                                   id="linkIndicacao" 
+                            <input type="text"
+                                   id="linkIndicacao"
                                    class="link-input"
-                                   value="<?= $link_indicacao ?>" 
+                                   value="<?= $link_indicacao ?>"
                                    readonly>
                         </div>
-                        
+
                         <button onclick="copiarLink()" class="copy-btn" id="copyBtn">
                             <i class="bi bi-clipboard"></i>
                             Copiar Link
@@ -731,7 +729,7 @@ try {
                                 <i class="bi bi-wallet2"></i>
                             </div>
                         </div>
-                        
+
                         <?php if ($total_comissoes_cpa > 0 || $total_comissoes_revshare > 0 || $total_deducoes_revshare > 0): ?>
                         <div class="commission-breakdown">
                             <?php if ($total_comissoes_cpa > 0): ?>
@@ -740,21 +738,21 @@ try {
                                 <span class="commission-value">R$ <?= number_format($total_comissoes_cpa, 2, ',', '.') ?></span>
                             </div>
                             <?php endif; ?>
-                            
+
                             <?php if ($total_comissoes_revshare > 0): ?>
                             <div class="commission-item">
                                 <span class="commission-label">RevShare (Ganhos):</span>
                                 <span class="commission-value">R$ <?= number_format($total_comissoes_revshare, 2, ',', '.') ?></span>
                             </div>
                             <?php endif; ?>
-                            
+
                             <?php if ($total_deducoes_revshare > 0): ?>
                             <div class="commission-item">
                                 <span class="commission-label">Deduções (Perdas):</span>
                                 <span class="commission-value" style="color: #ef4444;">-R$ <?= number_format($total_deducoes_revshare, 2, ',', '.') ?></span>
                             </div>
                             <?php endif; ?>
-                            
+
                             <?php if ($total_comissoes_revshare > 0 || $total_deducoes_revshare > 0): ?>
                             <hr style="border-color: rgba(255,255,255,0.1); margin: 0.5rem 0;">
                             <div class="commission-item">
@@ -766,7 +764,7 @@ try {
                             <?php endif; ?>
                         </div>
                         <?php endif; ?>
-                        
+
                         <div class="stat-footer">
                             Total de comissões ganhas
                         </div>
@@ -779,7 +777,7 @@ try {
                         <i class="bi bi-list-ul"></i>
                         Seus Indicados
                     </h3>
-                    
+
                     <?php if (empty($indicados)): ?>
                         <div class="empty-state">
                             <i class="bi bi-people empty-icon"></i>
@@ -797,17 +795,17 @@ try {
                                             <span class="field-label">Nome</span>
                                             <span class="field-value"><?= htmlspecialchars($indicado['nome']) ?></span>
                                         </div>
-                                        
+
                                         <div class="indicado-field">
                                             <span class="field-label">E-mail</span>
                                             <span class="field-value email"><?= htmlspecialchars($indicado['email']) ?></span>
                                         </div>
-                                        
+
                                         <div class="indicado-field">
                                             <span class="field-label">Cadastro</span>
                                             <span class="field-value"><?= date('d/m/Y', strtotime($indicado['created_at'])) ?></span>
                                         </div>
-                                        
+
                                         <div class="indicado-field">
                                             <span class="field-label">Total Depositado</span>
                                             <span class="field-value money">
@@ -830,27 +828,27 @@ try {
         function copiarLink() {
             const linkInput = document.getElementById('linkIndicacao');
             const copyBtn = document.getElementById('copyBtn');
-            
+
             // Seleciona e copia o texto
             linkInput.select();
             linkInput.setSelectionRange(0, 99999); // Para mobile
-            
+
             try {
                 document.execCommand('copy');
-                
+
                 // Feedback visual
                 copyBtn.innerHTML = '<i class="bi bi-check-circle"></i> Copiado!';
                 copyBtn.classList.add('success-animation');
-                
+
                 // Notificação
                 Notiflix.Notify.success('Link copiado para a área de transferência!');
-                
+
                 // Restaura o botão após 2 segundos
                 setTimeout(() => {
                     copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> Copiar Link';
                     copyBtn.classList.remove('success-animation');
                 }, 2000);
-                
+
             } catch (err) {
                 Notiflix.Notify.failure('Erro ao copiar o link');
                 console.error('Erro ao copiar:', err);
@@ -860,7 +858,7 @@ try {
         // Clipboard API moderna (fallback)
         async function copiarLinkModerno() {
             const linkInput = document.getElementById('linkIndicacao');
-            
+
             try {
                 await navigator.clipboard.writeText(linkInput.value);
                 Notiflix.Notify.success('Link copiado!');

@@ -1,10 +1,9 @@
 <?php
-@session_start();
 require_once '../conexao.php';
 
 // Ordenar por valor decrescente (maior para menor) primeiro
 $sql = "
-    SELECT r.*, 
+    SELECT r.*,
            MAX(p.valor) AS maior_premio
       FROM raspadinhas r
  LEFT JOIN raspadinha_premios p ON p.raspadinha_id = r.id
@@ -20,18 +19,18 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - Raspadinhas</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -363,29 +362,29 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             .page-title {
                 font-size: 2rem;
             }
-            
+
             .stats-bar {
                 gap: 1.5rem;
                 flex-wrap: wrap;
             }
-            
+
             .stat-number {
                 font-size: 1.5rem;
             }
-            
+
             .cartelas-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            
+
             .cartela-content {
                 padding: 1rem;
             }
-            
+
             .filter-bar {
                 gap: 0.5rem;
             }
-            
+
             .filter-btn {
                 padding: 0.6rem 1rem;
                 font-size: 0.85rem;
@@ -396,7 +395,7 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             .cartelas-container {
                 padding: 0 1rem;
             }
-            
+
             .cartelas-grid {
                 grid-template-columns: 1fr;
             }
@@ -463,7 +462,7 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                 <p class="page-subtitle">
                     Centenas de prêmios esperando por você! Raspe e ganhe na hora com PIX instantâneo.
                 </p>
-                
+
                 <div class="stats-bar">
                     <div class="stat-item">
                         <span class="stat-number"><?= count($cartelas); ?></span>
@@ -479,7 +478,7 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
-            
+
             <!-- Enhanced Filter Bar -->
             <div class="filter-bar fade-in">
                 <button class="filter-btn active" data-filter="all">
@@ -510,18 +509,18 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <div class="cartelas-grid stagger-animation" id="cartelasGrid">
                     <?php foreach ($cartelas as $c): ?>
-                        <a href="/raspadinhas/show.php?id=<?= $c['id']; ?>" 
-                           class="cartela-card" 
+                        <a href="/raspadinhas/show.php?id=<?= $c['id']; ?>"
+                           class="cartela-card"
                            data-price="<?= $c['valor']; ?>"
                            data-aos="fade-up">
-                            
+
                             <div style="position: relative; overflow: hidden;">
                                 <img src="<?= htmlspecialchars($c['banner']); ?>"
                                      alt="Banner <?= htmlspecialchars($c['nome']); ?>"
-                                     class="cartela-image" 
+                                     class="cartela-image"
                                      loading="lazy"
                                      onerror="this.src='/assets/img/placeholder-raspadinha.jpg'">
-                                
+
                                 <div class="price-badge">
                                     <i class="bi bi-tag-fill"></i>
                                     R$ <?= number_format($c['valor'], 2, ',', '.'); ?>
@@ -545,7 +544,7 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                                 <h2 class="cartela-title">
                                     <?= htmlspecialchars($c['nome']); ?>
                                 </h2>
-                                
+
                                 <p class="cartela-description">
                                     <?= htmlspecialchars($c['descricao']); ?>
                                 </p>
@@ -595,7 +594,7 @@ $cartelas = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                     btn.classList.add('active');
 
                     const filter = btn.dataset.filter;
-                    
+
                     cartelas.forEach(cartela => {
                         const price = parseFloat(cartela.dataset.price);
                         let show = false;

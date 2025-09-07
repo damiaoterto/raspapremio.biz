@@ -1,5 +1,4 @@
 <?php
-@session_start();
 require_once '../conexao.php';
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -30,18 +29,18 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - <?= htmlspecialchars($cartela['nome']); ?></title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -549,15 +548,15 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
             .raspadinha-container {
                 padding: 0 1rem;
             }
-            
+
             .cartela-title {
                 font-size: 2rem;
             }
-            
+
             .game-container {
                 padding: 1.5rem;
             }
-            
+
             .instructions-list {
                 grid-template-columns: 1fr;
             }
@@ -601,7 +600,7 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
             .cartela-title {
                 font-size: 1.5rem;
             }
-            
+
             #scratch-container {
                 max-width: 300px;
             }
@@ -655,14 +654,14 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
             <!-- Header Card -->
             <div class="header-card">
                 <div class="cartela-banner">
-                    <img src="<?= htmlspecialchars($cartela['banner']); ?>" 
-                         class="cartela-image" 
+                    <img src="<?= htmlspecialchars($cartela['banner']); ?>"
+                         class="cartela-image"
                          alt="Banner <?= htmlspecialchars($cartela['nome']); ?>">
-                    
+
                     <div class="cartela-overlay">
                         <h1 class="cartela-title"><?= htmlspecialchars($cartela['nome']); ?></h1>
                     </div>
-                    
+
                     <div class="price-badge">
                         <i class="bi bi-tag-fill"></i>
                         R$ <?= number_format($cartela['valor'], 2, ',', '.'); ?>
@@ -699,12 +698,12 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
                         <i class="bi bi-gift-fill"></i>
                         CONTEÚDO DESSA RASPADINHA:
                     </h3>
-                    
+
                     <div class="prizes-grid">
                         <?php foreach ($premios as $premio): ?>
                             <div class="prize-card">
                                 <div class="prize-image">
-                                    <img src="<?= htmlspecialchars($premio['icone']); ?>" 
+                                    <img src="<?= htmlspecialchars($premio['icone']); ?>"
                                          alt="<?= htmlspecialchars($premio['nome']); ?>"
                                          onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMyMmM1NWUiLz4KPHN2ZyB4PSIxNiIgeT0iMTYiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTYgOGMwLTQuNDExIDMuNTg5LTggOC04czggMy41ODkgOCA4djJjMCAxLjEwNS0uODk1IDItMiAySDJjLTEuMTA1IDAtMi0uODk1LTItMlY4eiIvPgo8L3N2Zz4KPC9zdmc+'">
                                 </div>
@@ -777,7 +776,7 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
 
             const newCanvas = document.createElement('canvas');
             newCanvas.id = 'scratch-canvas';
-            newCanvas.className = canvas.className;    
+            newCanvas.className = canvas.className;
             container.appendChild(newCanvas);
 
             canvas = newCanvas;
@@ -898,7 +897,7 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
 
         async function finishScratch() {
             resultMsg.innerHTML = '<i class="bi bi-hourglass-split loading-pulse"></i> Verificando resultado...';
-            
+
             const fd = new FormData();
             fd.append('order_id', orderId);
             const response = await fetch('/raspadinhas/finish.php', { method: 'POST', body: fd });
@@ -910,7 +909,7 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
             }
 
             const jsConfetti = new JSConfetti();
-            
+
             if (json.valor === 0 || json.resultado === 'lose') {
                 resultMsg.innerHTML = `
                     <div style="color: #ef4444;">
@@ -951,9 +950,9 @@ $premios = $premios->fetchAll(PDO::FETCH_ASSOC);
         }
 
         function reiniciarJogo() {
-            if (fadeInterval) { 
-                clearInterval(fadeInterval); 
-                fadeInterval = null; 
+            if (fadeInterval) {
+                clearInterval(fadeInterval);
+                fadeInterval = null;
             }
 
             container.classList.remove('win-animation');

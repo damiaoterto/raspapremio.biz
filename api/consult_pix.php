@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/../conexao.php';
+
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -15,8 +16,6 @@ if (empty($qrcode)) {
     echo json_encode(['error' => 'Parâmetro qrcode ausente']);
     exit;
 }
-
-require_once __DIR__ . '/../conexao.php';
 
 try {
     $stmt = $pdo->prepare("SELECT status FROM depositos WHERE qrcode = :qrcode LIMIT 1");

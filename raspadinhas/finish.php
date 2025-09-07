@@ -1,5 +1,4 @@
 <?php
-@session_start();
 require_once '../conexao.php';
 header('Content-Type: application/json');
 
@@ -67,7 +66,7 @@ if ($resultado === 'gain') {
 
     $pdo->prepare("UPDATE usuarios SET saldo = saldo + ? WHERE id = ?")
         ->execute([$valorTotalACreditar, $userId]);
-    
+
     // ✅ Revshare baseado no valor ganho
     processarRevshareGanho($pdo, $userId, $valorPremio);
 } else {
@@ -87,7 +86,7 @@ $pdo->prepare("
 echo json_encode([
     'success'   => true,
     'resultado' => $resultado,
-    'valor'     => $valorPremio 
+    'valor'     => $valorPremio
 ]);
 
 /**
@@ -98,22 +97,22 @@ function processarRevshareGanho($pdo, $userId, $valorGanho) {
         $stmt = $pdo->prepare("SELECT indicacao FROM usuarios WHERE id = ?");
         $stmt->execute([$userId]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if (!$usuario || !$usuario['indicacao']) return false;
-        
+
         $stmt = $pdo->prepare("SELECT id, comissao_revshare, saldo FROM usuarios WHERE id = ?");
         $stmt->execute([$usuario['indicacao']]);
         $afiliado = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if (!$afiliado) return false;
-        
+
         $percentualRevshare = $afiliado['comissao_revshare'];
 
         if ($percentualRevshare == 0) {
             $stmt = $pdo->query("SELECT revshare_padrao FROM config LIMIT 1");
             $percentualRevshare = $stmt->fetchColumn() ?: 0;
         }
-        
+
         if ($percentualRevshare <= 0) return false;
 
         // ✅ Dedução baseada no valor ganho
@@ -123,10 +122,10 @@ function processarRevshareGanho($pdo, $userId, $valorGanho) {
         $novoSaldo = $afiliado['saldo'] - $valorDeduzir;
         $stmt = $pdo->prepare("UPDATE usuarios SET saldo = ?, updated_at = NOW() WHERE id = ?");
         $stmt->execute([$novoSaldo, $afiliado['id']]);
-        
+
         registrarTransacaoRevshare($pdo, $afiliado['id'], $userId, $valorGanho, -$valorDeduzir, $percentualRevshare, 'ganho_usuario');
         return true;
-        
+
     } catch (PDOException $e) {
         error_log("Erro ao processar revshare ganho: " . $e->getMessage());
         return false;
@@ -141,13 +140,13 @@ function processarRevsharePerdas($pdo, $userId, $valorPerdido) {
         $stmt = $pdo->prepare("SELECT indicacao FROM usuarios WHERE id = ?");
         $stmt->execute([$userId]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if (!$usuario || !$usuario['indicacao']) return false;
 
         $stmt = $pdo->prepare("SELECT id, comissao_revshare, saldo FROM usuarios WHERE id = ?");
         $stmt->execute([$usuario['indicacao']]);
         $afiliado = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if (!$afiliado) return false;
 
         $percentualRevshare = $afiliado['comissao_revshare'];
@@ -155,7 +154,7 @@ function processarRevsharePerdas($pdo, $userId, $valorPerdido) {
             $stmt = $pdo->query("SELECT revshare_padrao FROM config LIMIT 1");
             $percentualRevshare = $stmt->fetchColumn() ?: 0;
         }
-        
+
         if ($percentualRevshare <= 0) return false;
 
         $comissao = ($valorPerdido * $percentualRevshare) / 100;
@@ -164,10 +163,10 @@ function processarRevsharePerdas($pdo, $userId, $valorPerdido) {
         $novoSaldo = $afiliado['saldo'] + $comissao;
         $stmt = $pdo->prepare("UPDATE usuarios SET saldo = ?, updated_at = NOW() WHERE id = ?");
         $stmt->execute([$novoSaldo, $afiliado['id']]);
-        
+
         registrarTransacaoRevshare($pdo, $afiliado['id'], $userId, $valorPerdido, $comissao, $percentualRevshare, 'perda_usuario');
         return true;
-        
+
     } catch (PDOException $e) {
         error_log("Erro ao processar revshare perda: " . $e->getMessage());
         return false;
@@ -181,8 +180,8 @@ function registrarTransacaoRevshare($pdo, $afiliadoId, $usuarioId, $valorBase, $
     try {
         criarTabelaHistoricoRevshare($pdo);
         $stmt = $pdo->prepare("
-            INSERT INTO historico_revshare 
-            (afiliado_id, usuario_id, valor_apostado, valor_revshare, percentual, tipo, created_at) 
+            INSERT INTO historico_revshare
+            (afiliado_id, usuario_id, valor_apostado, valor_revshare, percentual, tipo, created_at)
             VALUES (?, ?, ?, ?, ?, ?, NOW())
         ");
         $stmt->execute([$afiliadoId, $usuarioId, $valorBase, $valorRevshare, $percentual, $tipo]);

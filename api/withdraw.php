@@ -3,7 +3,6 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
-session_start();
 
 require_once __DIR__ . '/../conexao.php';
 
@@ -53,7 +52,7 @@ try {
         throw new Exception('Você já possui um saque pendente. Aguarde a conclusão para solicitar outro.');
     }
 
-  
+
     $newBalance = $usuario['saldo'] - $amount;
     $stmt = $pdo->prepare("UPDATE usuarios SET saldo = :saldo WHERE id = :id");
     $stmt->bindParam(':saldo', $newBalance);
@@ -61,7 +60,7 @@ try {
     $stmt->execute();
 
     $transactionId = uniqid('WTH_');
-    $stmt = $pdo->prepare("INSERT INTO saques (transactionId, user_id, nome, cpf, valor, status) 
+    $stmt = $pdo->prepare("INSERT INTO saques (transactionId, user_id, nome, cpf, valor, status)
                            VALUES (:transactionId, :user_id, :nome, :cpf, :valor, 'PENDING')");
     $stmt->bindParam(':transactionId', $transactionId);
     $stmt->bindParam(':user_id', $usuario_id, PDO::PARAM_INT);
