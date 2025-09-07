@@ -3,13 +3,14 @@ require_once __DIR__.'/vendor/autoload.php';
 
 $envPath = __DIR__.'/.env';
 
+ini_set('session.cookie_secure', 1);
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.use_only_cookies', 1);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
 
 if (file_exists($envPath)) {
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
