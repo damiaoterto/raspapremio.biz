@@ -23,8 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
       }
 
+        session_regenerate_id(true);
+
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['message'] = ['type' => 'success', 'text' => 'Login realizado com sucesso!'];
+
+        session_write_close();
+
         header("Location: /");
         exit;
     } else {

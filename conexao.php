@@ -4,6 +4,10 @@ require_once __DIR__.'/vendor/autoload.php';
 
 $envPath = __DIR__.'/.env';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (file_exists($envPath)) {
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
