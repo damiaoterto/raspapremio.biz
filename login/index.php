@@ -1,6 +1,4 @@
 <?php
-@session_start();
-
 if (isset($_SESSION['usuario_id'])) {
     $_SESSION['message'] = ['type' => 'warning', 'text' => 'Você já está logado!'];
     header("Location: /");
@@ -18,13 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($usuario && password_verify($senha, $usuario['senha'])) {
-      
+
       if($usuario['banido'] == 1){
         $_SESSION['message'] = ['type' => 'failure', 'text' => 'Você está banido!'];
         header("Location: /");
         exit;
       }
-      
+
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['message'] = ['type' => 'success', 'text' => 'Login realizado com sucesso!'];
         header("Location: /");
@@ -43,18 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - Login</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -448,27 +446,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .brand-content {
                 display: none;
             }
-            
+
             .left-section {
                 order: 2;
                 text-align: center;
             }
-            
+
             .right-section {
                 order: 1;
             }
-            
+
             .brand-title {
                 font-size: 2.5rem;
             }
-            
+
             .features-list {
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 1rem;
             }
-            
+
             .feature-item {
                 font-size: 1rem;
             }
@@ -478,30 +476,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .login-section {
                 padding: 2rem 0;
             }
-            
+
             .login-container {
                 padding: 0 1rem;
             }
-            
+
             .login-card {
                 padding: 2rem;
                 border-radius: 20px;
             }
-            
+
             .brand-logo {
                 width: 80px;
                 height: 80px;
                 font-size: 2rem;
             }
-            
+
             .brand-title {
                 font-size: 2rem;
             }
-            
+
             .brand-subtitle {
                 font-size: 1.1rem;
             }
-            
+
             .features-list {
                 display: none;
             }
@@ -511,11 +509,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .login-card {
                 padding: 1.5rem;
             }
-            
+
             .form-input {
                 padding: 0.8rem 0.8rem 0.8rem 2.5rem;
             }
-            
+
             .input-icon {
                 left: 0.8rem;
             }
@@ -566,11 +564,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="brand-content">
                     <h1 class="brand-title">Bem-vindo de volta!</h1>
                     <p class="brand-subtitle">
-                        Entre na sua conta e continue ganhando 
-                        <span class="highlight-text">prêmios incríveis</span> 
+                        Entre na sua conta e continue ganhando
+                        <span class="highlight-text">prêmios incríveis</span>
                         com nossas raspadinhas!
                     </p>
-                    
+
                     <div class="features-list">
                         <div class="feature-item">
                             <div class="feature-icon">
@@ -618,10 +616,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="input-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
-                            <input type="email" 
-                                   name="email" 
+                            <input type="email"
+                                   name="email"
                                    class="form-input"
-                                   placeholder="seu@email.com" 
+                                   placeholder="seu@email.com"
                                    required>
                         </div>
 
@@ -629,10 +627,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="input-icon">
                                 <i class="bi bi-lock"></i>
                             </div>
-                            <input type="password" 
-                                   name="senha" 
+                            <input type="password"
+                                   name="senha"
                                    class="form-input"
-                                   placeholder="Sua senha" 
+                                   placeholder="Sua senha"
                                    required>
                         </div>
 
@@ -646,7 +644,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="divider">
                             <span>ou</span>
                         </div>
-                        
+
                         <p class="footer-text">
                             Ainda não tem uma conta?
                         </p>
@@ -689,7 +687,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 input.addEventListener('focus', function() {
                     this.parentElement.style.transform = 'translateY(-2px)';
                 });
-                
+
                 input.addEventListener('blur', function() {
                     this.parentElement.style.transform = 'translateY(0)';
                 });

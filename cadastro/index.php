@@ -1,13 +1,11 @@
 <?php
-session_start();
-
 if(isset($_SESSION['usuario_id'])){
     $_SESSION['message'] = ['type' => 'warning', 'text' => 'Você já está logado!'];
     header("Location: /");
     exit;
 }
 
-require_once '../conexao.php'; 
+require_once '../conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome']);
@@ -19,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt_config = $pdo->query("SELECT cpa_padrao, revshare_padrao FROM config LIMIT 1");
         $config = $stmt_config->fetch(PDO::FETCH_ASSOC);
-        
+
         $cpa_padrao = $config['cpa_padrao'] ?? 0.00;
         $revshare_padrao = $config['revshare_padrao'] ?? 0.00;
     } catch (PDOException $e) {
@@ -27,17 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $revshare_padrao = 0.00;
     }
 
-    $stmt = $pdo->prepare("INSERT INTO usuarios 
-                          (nome, telefone, email, senha, saldo, indicacao, banido, comissao_cpa, comissao_revshare, created_at, updated_at) 
+    $stmt = $pdo->prepare("INSERT INTO usuarios
+                          (nome, telefone, email, senha, saldo, indicacao, banido, comissao_cpa, comissao_revshare, created_at, updated_at)
                           VALUES (?, ?, ?, ?, 0, ?, 0, ?, ?, NOW(), NOW())");
 
     try {
         $stmt->execute([$nome, $telefone, $email, $senha, $ref, $cpa_padrao, $revshare_padrao]);
-        
+
         $usuarioId = $pdo->lastInsertId();
         $_SESSION['usuario_id'] = $usuarioId;
         $_SESSION['message'] = ['type' => 'success', 'text' => 'Cadastro realizado com sucesso!'];
-        
+
         header("Location: /");
         exit;
     } catch (PDOException $e) {
@@ -55,18 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - Cadastro</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?php echo time();?>"/>
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -538,27 +536,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .brand-content {
                 display: none !important;
             }
-            
+
             .left-section {
                 order: 2;
                 text-align: center;
             }
-            
+
             .right-section {
                 order: 1;
             }
-            
+
             .brand-title {
                 font-size: 2.5rem;
             }
-            
+
             .benefits-list {
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 1rem;
             }
-            
+
             .benefit-item {
                 font-size: 1rem;
             }
@@ -572,30 +570,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .brand-content {
                 display: none !important;
             }
-            
+
             .cadastro-container {
                 padding: 0 1rem;
             }
-            
+
             .cadastro-card {
                 padding: 2rem;
                 border-radius: 20px;
             }
-            
+
             .brand-logo {
                 width: 80px;
                 height: 80px;
                 font-size: 2rem;
             }
-            
+
             .brand-title {
                 font-size: 2rem;
             }
-            
+
             .brand-subtitle {
                 font-size: 1.1rem;
             }
-            
+
             .benefits-list {
                 display: none;
             }
@@ -605,7 +603,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .cadastro-card {
                 padding: 1.5rem;
             }
-            
+
             .form-input {
                 padding: 0.8rem 0.8rem 0.8rem 2.5rem;
             }
@@ -613,7 +611,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .brand-content {
                 display: none !important;
             }
-            
+
             .input-icon {
                 left: 0.8rem;
             }
@@ -664,11 +662,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="brand-content">
                     <h1 class="brand-title">Comece a ganhar hoje!</h1>
                     <p class="brand-subtitle">
-                        Junte-se a milhares de usuários que já estão ganhando 
-                        <span class="highlight-text">prêmios incríveis</span> 
+                        Junte-se a milhares de usuários que já estão ganhando
+                        <span class="highlight-text">prêmios incríveis</span>
                         com a RaspaGreen!
                     </p>
-                    
+
                     <div class="benefits-list">
                         <div class="benefit-item">
                             <div class="benefit-icon">
@@ -713,7 +711,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <form id="cadastroForm" method="POST" class="cadastro-form">
                         <input id="ref" name="ref" type="hidden" value="">
-                        
+
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="bi bi-person"></i>
@@ -762,7 +760,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="divider">
                             <span>ou</span>
                         </div>
-                        
+
                         <p class="footer-text">
                             Já tem uma conta?
                         </p>
@@ -847,7 +845,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 input.addEventListener('focus', function() {
                     this.parentElement.style.transform = 'translateY(-2px)';
                 });
-                
+
                 input.addEventListener('blur', function() {
                     this.parentElement.style.transform = 'translateY(0)';
                 });

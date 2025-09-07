@@ -1,6 +1,4 @@
 <?php
-@session_start();
-
 if (file_exists('./conexao.php')) {
     include('./conexao.php');
 } elseif (file_exists('../conexao.php')) {
@@ -58,18 +56,18 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nomeSite;?> - Minhas Apostas</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/style/globalStyles.css?id=<?= time(); ?>">
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/src/notiflix.min.css" rel="stylesheet">
@@ -448,24 +446,24 @@ try {
             .apostas-container {
                 padding: 0 1rem;
             }
-            
+
             .header-title {
                 font-size: 2rem;
             }
-            
+
             .main-container {
                 padding: 1.5rem;
             }
-            
+
             .bet-content {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            
+
             .bet-summary {
                 text-align: center;
             }
-            
+
             .bet-values {
                 font-size: 0.8rem;
             }
@@ -475,13 +473,13 @@ try {
             .header-title {
                 font-size: 1.8rem;
             }
-            
+
             .bet-header {
                 flex-direction: column;
                 gap: 0.5rem;
                 align-items: stretch;
             }
-            
+
             .bet-status {
                 align-self: flex-end;
             }
@@ -572,7 +570,7 @@ try {
                                         <?= $status ?>
                                     </div>
                                 </div>
-                                
+
                                 <div class="bet-content">
                                     <div class="bet-details">
                                         <div class="bet-game">
@@ -590,7 +588,7 @@ try {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="bet-summary">
                                         <div class="bet-summary-value <?= $statusClass ?>">
                                             <?= $isWin ? '+' : '' ?>R$ <?= number_format($aposta['valor_ganho'] - $aposta['valor_apostado'], 2, ',', '.') ?>
@@ -608,7 +606,7 @@ try {
                     <?php if ($totalPaginas > 1): ?>
                         <div class="pagination">
                             <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                                <a href="?pagina=<?= $i ?>" 
+                                <a href="?pagina=<?= $i ?>"
                                    class="pagination-item <?= $i == $paginaAtual ? 'active' : '' ?>">
                                     <?= $i ?>
                                 </a>
@@ -627,13 +625,13 @@ try {
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('%c🎲 Apostas carregadas!', 'color: #22c55e; font-size: 16px; font-weight: bold;');
-            
+
             // Add hover effects to bet items
             document.querySelectorAll('.bet-item').forEach(item => {
                 item.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-2px)';
                 });
-                
+
                 item.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });
