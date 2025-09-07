@@ -8,7 +8,7 @@ on:
       - "**/*.yml"
 
 env:
-  APP_NAME: 'raspapremio'
+  APP_NAME: 'raspapremio.biz'
 
 jobs:
   build-and-push:

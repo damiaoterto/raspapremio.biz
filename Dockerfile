@@ -33,8 +33,8 @@ RUN a2enconf apache-custom
 RUN a2enmod rewrite
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-COPY ./composer.json ./composer.lock ./
 COPY . /var/www/html/
+COPY ./composer.json ./composer.lock ./
 
 RUN composer install
 
