@@ -3,14 +3,21 @@ require_once __DIR__.'/vendor/autoload.php';
 
 $envPath = __DIR__.'/.env';
 
-ini_set('session.cookie_secure', 1);
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_samesite', 'Lax');
-ini_set('session.use_only_cookies', 1);
+session_name('__Secure-RASPASESSID');
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'domain' => '',
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 
 if (file_exists($envPath)) {
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
