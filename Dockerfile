@@ -1,5 +1,7 @@
 FROM php:8.4-apache
 
+COPY ./docker/php/custom.ini /usr/local/etc/php/conf.d/
+
 WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install -y \
