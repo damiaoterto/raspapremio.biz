@@ -1,9 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
-include('./conexao.php');
+include('./inc/header.php');
+include 'includes/notiflix.php';
+// include('./conexao.php');
 
 $inMaintenance = $_ENV['MAINTENANCE'] === 'true';
 $allowedIps = explode(',', $_ENV['MAINTENANCE_ALLOWED_IPS']);
@@ -209,8 +207,6 @@ if ($inMaintenance && !$foundIps) {
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-spinner"></div>
     </div>
-
-    <?php include('./inc/header.php'); ?>
 
     <main>
         <?php include('./components/carrossel.php'); ?>
