@@ -37,7 +37,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.HARBOR_HOST }}/library/${{ env.APP_NAME }}:latest
-            ${{ secrets.HARBOR_HOST }}/library/${{ env.APP_NAME }}:${{ github.sha }}
+            ${{ secrets.HARBOR_HOST }}/platform/${{ env.APP_NAME }}:latest
+            ${{ secrets.HARBOR_HOST }}/platform/${{ env.APP_NAME }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
