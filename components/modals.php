@@ -583,10 +583,14 @@ document.getElementById('depositForm')?.addEventListener('submit', async e => {
             const qrcodeValue = data.qrcode;
             const intervalId = setInterval(async () => {
                 try {
+                    const formData = new FormData();
+                    formData.append('qrcode', qrcodeValue);
+
                     const resConsult = await fetch('/api/consult_pix.php', {
                         method: 'POST',
-                        body: new URLSearchParams({ qrcode: qrcodeValue })
+                        body: formData,
                     });
+
                     const consultData = await resConsult.json();
 
                     if (consultData.paid === true) {
@@ -594,7 +598,7 @@ document.getElementById('depositForm')?.addEventListener('submit', async e => {
                         Notiflix.Notify.success('Pagamento aprovado!');
                         setTimeout(() => {
                             window.location.href = '/';
-                        }, 2000);
+                        }, 1000);
                     }
                 } catch (err) {
                     console.error('Erro no polling', err);

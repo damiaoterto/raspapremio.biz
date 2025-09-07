@@ -8,10 +8,11 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 // CONFIGURAÇÃO DE LOGS - ALTERE AQUI PARA ATIVAR/DESATIVAR
 define('DEBUG_MODE', true); // true = logs ativos | false = logs desativados
-define('LOG_FILE', 'logs.txt');
+define('LOG_FILE', 'ondapay_webhook.txt');
 
 // Função para gravar logs apenas se DEBUG_MODE estiver ativo
 function writeLog($message) {
+    file_put_contents('php://stderr', date('[Y-m-d H:i:s] ') . $message . "\n");
     if (DEBUG_MODE) {
         file_put_contents(LOG_FILE, date('d/m/Y H:i:s') . " - " . $message . PHP_EOL, FILE_APPEND);
     }

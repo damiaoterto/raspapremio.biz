@@ -99,11 +99,6 @@ try {
                 'document' => $cpf,
                 'email' => $usuario['email']
             ],
-          	'split' => [
-              	'email' => 'portalqic@gmail.com',
-              	'percentage' => 2
-
-             ],
           	'dueDate' => date('Y-m-d H:i:s', strtotime('+1 day'))
         ];
 
