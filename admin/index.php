@@ -1,7 +1,11 @@
 <?php
-include '../includes/session.php';
 include '../conexao.php';
 include '../includes/notiflix.php';
+
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: /login');
+    exit;
+}
 
 $usuarioId = $_SESSION['usuario_id'];
 $admin = ($stmt = $pdo->prepare("SELECT admin FROM usuarios WHERE id = ?"))->execute([$usuarioId]) ? $stmt->fetchColumn() : null;
