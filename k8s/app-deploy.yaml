@@ -26,6 +26,8 @@ spec:
             value: "191.177.163.136"
           - name: DATABASE_HOST
             value: "mysql"
+          - name: BASE_URL
+            value: "https://raspapremio.biz"
           - name: DATABASE_PORT
             value: "3306"
           - name: DATABASE_NAME
