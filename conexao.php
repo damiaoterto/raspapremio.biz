@@ -24,6 +24,17 @@ if (file_exists($envPath)) {
     $dotenv->load();
 }
 
+$inMaintenance = $_ENV['MAINTENANCE'] === 'true';
+$allowedIps = explode(',', $_ENV['MAINTENANCE_ALLOWED_IPS']);
+$foundIps = array_search($_SERVER['REMOTE_ADDR'], $allowedIps);
+
+if ($inMaintenance && !$foundIps) {
+    require_once __DIR__ . '/maintenance.php';
+    http_response_code(200);
+    exit();
+}
+
+
 $host = $_ENV['DATABASE_HOST'];
 $db   = $_ENV['DATABASE_NAME'];
 $user = $_ENV['DATABASE_USER'];

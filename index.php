@@ -1,16 +1,8 @@
 <?php
+include('./conexao.php');
+
 include('./inc/header.php');
 include 'includes/notiflix.php';
-// include('./conexao.php');
-
-$inMaintenance = $_ENV['MAINTENANCE'] === 'true';
-$allowedIps = explode(',', $_ENV['MAINTENANCE_ALLOWED_IPS']);
-$foundIps = array_search($_SERVER['REMOTE_ADDR'], $allowedIps);
-
-if ($inMaintenance && !$foundIps) {
-    require_once __DIR__.'/maintenance.php';
-    return;
-}
 ?>
 
 <!DOCTYPE html>
